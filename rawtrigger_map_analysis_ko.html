@@ -1,0 +1,522 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RawTrigger EPS 상세 분석 — 99년도 영원히 갇힌사람</title><style>
+:root{--ink:#172337;--muted:#566477;--line:#dbe3ec;--accent:#135e78;--light:#edf5f7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5f7fa;color:var(--ink);font:16px/1.8 system-ui,-apple-system,"Malgun Gothic","Apple SD Gothic Neo",sans-serif}
+header{background:#142c42;color:white;padding:54px max(28px,calc((100% - 1120px)/2)) 38px}header small{letter-spacing:.14em;color:#b4d6df}h1{font-size:34px;line-height:1.4;max-width:950px;margin:14px 0}header p{max-width:920px;color:#d9e5ef}
+main{max-width:1120px;margin:auto;padding:24px 28px 90px}nav{background:white;border:1px solid var(--line);border-radius:12px;padding:24px;margin:6px 0 26px}nav ol{columns:2;padding-left:24px;margin:10px 0}a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}section{background:white;padding:30px 34px;margin:24px 0;border:1px solid var(--line);border-radius:12px;scroll-margin-top:18px}
+h2{font-size:25px;line-height:1.45;margin:0 0 23px;border-bottom:2px solid #c9e0e6;padding-bottom:14px}h3{font-size:20px;margin:26px 0 14px}p{margin:15px 0}strong{font-weight:720}.scope{background:var(--light);padding:18px 22px;border-left:4px solid var(--accent);font-size:15px}.table-wrap{overflow:auto;margin:22px 0}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.65}th,td{padding:12px 13px;border:1px solid var(--line);vertical-align:top;text-align:left}th{background:#edf3f7;font-weight:700}td:first-child{font-weight:600;min-width:90px}tbody tr:nth-child(even){background:#fafcfd}code{font-family:ui-monospace,Consolas,monospace;font-size:.91em;overflow-wrap:anywhere}p code,td code{background:#eef3f6;padding:2px 4px;border-radius:4px}pre{background:#172638;color:#e5edf5;padding:20px;border-radius:8px;overflow:auto;line-height:1.6;font-size:13px}pre code{white-space:pre;overflow-wrap:normal}details{margin:12px 0;border:1px solid var(--line);border-radius:7px;padding:12px 16px;scroll-margin-top:18px}details:target{border:2px solid #318ca4}summary{cursor:pointer;font-weight:650}li{margin:8px 0}footer{font-size:13px;color:var(--muted);padding:16px 0}
+@media(max-width:760px){body{font-size:15px}header{padding:32px 22px}h1{font-size:28px}main{padding:16px 12px 50px}section{padding:22px 18px}h2{font-size:22px}nav ol{columns:1}th,td{padding:10px 9px}}
+@media print{body{background:white;font-size:10pt}header{background:white!important;color:#142c42;padding:18px 0}header p,header small{color:#324b5e}main{max-width:none;padding:0}section{border:0;padding:14px 0;margin:18px 0;break-inside:auto}h2{break-after:avoid}tr,pre{break-inside:avoid}details:not([open]){display:none}nav{display:none}a{color:inherit}.table-wrap{overflow:visible}pre{white-space:pre-wrap;color:black;background:#f1f4f6}}
+</style></head><body><header><small>STATIC ANALYSIS / EP SCRIPT</small><h1>99년도 영원히 갇힌사람<br>RawTrigger EPS 상세 분석</h1><p>게임 규칙, 실행 조건, 서사 상태, 질문 프로토콜, 미디어 처리 및 근거 노드. 첨부된 두 EPS를 기준으로 확인한 동작과 확인하지 못한 범위를 구분했다.</p></header><main><nav><strong>목차</strong><ol><li><a href="#overview">1. 이 맵이 하는 일</a></li><li><a href="#structure">2. 파일 구조와 규모</a></li><li><a href="#roles">3. 시작 설정과 여섯 역할</a></li><li><a href="#turns">4. 120초 대화권과 참가 상태</a></li><li><a href="#mainphase">5. 주요 사건: 미네랄·NPC·재진입·변신</a></li><li><a href="#interactions">6. 이름표·아이템·변신 알림</a></li><li><a href="#history">7. 탈출 질문과 사건 기록은 조건에 따라 자동 진행한다</a></li><li><a href="#epilogue">8. 마지막 대사 뒤의 에필로그와 재생 표식</a></li><li><a href="#questions">9. 채팅 질문·동기화·외부 메모리 영역</a></li><li><a href="#media">10. 작은 영상판과 한글 음절 음성</a></li><li><a href="#commands">11. 숨은 명령 인식 경로</a></li><li><a href="#rawmeaning">12. RawTrigger를 실제 의미로 읽는 방법</a></li><li><a href="#validation">13. 확인한 범위와 남은 한계</a></li><li><a href="#story-table">부록 A. 첫 서사: 단계와 전체 문구</a></li><li><a href="#sequel-table">부록 B. 후속 서사: 단계와 전체 문구</a></li><li><a href="#evidence">부록 C. 본문에서 인용한 노드</a></li><li><a href="#provenance">부록 D. 분석한 파일 식별</a></li></ol></nav><section id="overview"><h2>1. 이 맵이 하는 일</h2><p class=""><strong>「99년도 영원히 갇힌사람 · v1.1.6」은 6명이 역할을 받아 탐색하고, 차례대로 주남희에게 질문하며, 유닛 변신과 단계별 사건을 거쳐 고정 서사·에필로그를 보는 맵이다.</strong> 질문을 외부 처리기에 전달하는 메모리 프로토콜, 작은 영상판, 한글 음절 음성 재생기가 게임 로직과 함께 들어 있다.</p><p class="">실제 사건을 설명하는 고정 대사는 맵 안에 저장되어 있다. 이 보고서에서 역사 관련 문장은 <strong>맵이 그렇게 출력하도록 작성되어 있다는 뜻</strong>이며, 해당 사건의 사실관계를 별도로 검증한 역사 보고서는 아니다.</p><div class="table-wrap"><table><thead><tr><th>확인한 기능</th><th>핵심 동작</th></tr></thead><tbody><tr><td>역할</td><td>P1~P6에 고정 역할을 배정하고 자기 표식에서 1회 안내한다.</td></tr><tr><td>대화권</td><td>게임 카운트다운 120초마다 남은 참가자를 순환한다. 90·60·30초 안내가 있다.</td></tr><tr><td>질문</td><td>현재 차례·턴 세대·참가 상태·접두사 4 등을 검사하고 플레이어별 요청 칸에 기록한다.</td></tr><tr><td>주요 사건</td><td>P8 미네랄 2,000을 기점으로 세 종류의 적 NPC와 지역/변신 조건을 처리한다.</td></tr><tr><td>서사</td><td>주 단계 6~9에서 탈출 질문 문구를 최대 5회 출력하고, 주 단계 9에서 사건 기록을 자동 진행한다.</td></tr><tr><td>에필로그</td><td>사건 기록 마지막 대사 후 별도의 연출 상태기계가 시작된다. 동쪽 표식으로 후속 대사 일부를 다시 들을 수 있다.</td></tr><tr><td>외부 연동</td><td>8 KiB 메모리 영역과 동기화 패킷을 통해 질문·응답·미디어를 교환한다. 외부 GPT 프로그램 자체는 첨부되지 않았다.</td></tr></tbody></table></div><p class="scope"><strong>분석 범위:</strong> 첨부된 두 EPS 전체를 읽고 구조를 인덱싱했다. 원본 SCX/SCM, 음원 파일, 외부 처리기는 포함되어 있지 않다. 실제 StarCraft를 실행한 결과는 아니며, 지원되는 EUD 명령만 다루는 제한적 검산과 정적 추적을 함께 사용했다.</p></section><section id="structure"><h2>2. 파일 구조와 규모</h2><div class="table-wrap"><table><thead><tr><th>항목</th><th>확인값</th></tr></thead><tbody><tr><td>recovered_storage.eps</td><td>1,009,740행 · 48,186,074바이트</td></tr><tr><td>recovered_text.eps</td><td>6,732행 · 240,261바이트</td></tr><tr><td>명시적인 RawTrigger 정의</td><td>51,576개</td></tr><tr><td>Shared 주석과 action/condition 선언에서 식별한 트리거 노드</td><td>23,072개</td></tr><tr><td>분석 인덱스의 노드 합계</td><td>74,648개 — 실행 횟수나 매 프레임 실행되는 개수가 아니다.</td></tr><tr><td>문자열 테이블</td><td>ID 3,289개를 보존하는 선언. TEXT 문자열 상수 3,245개와 버퍼 등 별도 항목이 있다.</td></tr><tr><td>Shared 데이터 객체</td><td>28개. 대표적으로 변수 영역 1,646,016바이트와 opaque 영역 18,770,788바이트가 있다.</td></tr><tr><td>SetDeaths 계열 액션 표현식</td><td>180,225개 / 전체 180,722개. 일반 Action(acttype=45)도 포함한 정적 개수.</td></tr><tr><td>문자열 외부에 숨어 있던 내용</td><td>opaque의 DWORD를 little-endian으로 복원해 읽을거리 120개를 추출. 그중 117개에 직접 코드 참조가 있다.</td></tr></tbody></table></div><p class="">파일은 원래 함수의 실행 순서대로 정렬된 소스가 아니다. <code>R_...</code> 별칭과 <code>S_component_...</code> 객체를 선언한 다음, 각 노드의 <code>nextptr</code>와 이를 다시 쓰는 액션으로 실행을 연결한다. 따라서 파일에서 앞뒤에 놓인 두 블록이 게임에서도 연속 실행된다고 보면 안 된다. <code>R_1000070</code> 같은 이름은 복원된 주소 별칭이며 그대로 실제 절대 메모리 주소 0x1000070이라고 읽지 않았다. <code>S_component_... + n</code>은 그 객체에서의 바이트 오프셋이다.</p><p class="">공유 변수 영역의 많은 노드는 72바이트 간격으로 겹쳐 배치된 단일 액션 트리거다. 읽기·쓰기·변수 복사·함수 인자 전달·반환·조건 점프가 이런 노드로 확장되어 있어 줄 수가 커진다. 이 구조 때문에 게임 규칙뿐 아니라 화면 출력, 문자열 처리, 패킷 처리에 사용되는 기반 코드가 많이 보인다.</p><p class="">텍스트 인코딩도 혼합되어 있다. 기존 안내와 역할은 CP949, 확장 UI와 긴 대사는 UTF-8이 주로 사용된다. 복호화된 HUD 문구 116개는 서로 다른 문구 34개를 여러 호출 지점에 펼친 형태이며, 대부분의 사건 서사는 이 ENC 상수가 아니라 숫자 데이터 안에 저장되어 있다.</p></section><section id="roles"><h2>3. 시작 설정과 여섯 역할</h2><p class="">역할은 슬롯에 고정되어 있다. 해당 플레이어의 참가 플래그가 1이고, 아직 역할 안내를 보지 않았으며, 그 플레이어의 Men 유닛이 자기 로케이션 안에 들어오면 역할 문구를 출력하고 확인 플래그를 1로 바꾼다. 안내문은 표식을 12시 방향이라고 설명한다. 아래 로케이션 번호는 EPS에 저장된 식별자이며 원본 MRGN 좌표는 첨부되지 않았다.</p><div class="table-wrap"><table><thead><tr><th>슬롯</th><th>색</th><th>역할</th><th>로케이션</th><th>기억 힌트 요약</th><th>문자열 / 실행 근거</th></tr></thead><tbody><tr><td>P1</td><td>빨강</td><td>야간 수위</td><td>20</td><td>잠긴 문·돈·놓친 기억</td><td><code>TEXT_58</code><br><a href="#src-component_34383"><code>component_34383</code></a>(S 645,952행)</td></tr><tr><td>P2</td><td>파랑</td><td>출입 기록원</td><td>21</td><td>장부의 빈칸·발걸음의 기억</td><td><code>TEXT_59</code><br><a href="#src-component_38030"><code>component_38030</code></a>(S 684,645행)</td></tr><tr><td>P3</td><td>청록</td><td>카운터 계산원</td><td>22</td><td>금고가 무거워지면 달라지는 방</td><td><code>TEXT_60</code><br><a href="#src-component_40898"><code>component_40898</code></a>(S 715,418행)</td></tr><tr><td>P4</td><td>보라</td><td>기기 수리원</td><td>23</td><td>돈 냄새에 깨어나는 기계·흩어진 기억</td><td><code>TEXT_61</code><br><a href="#src-component_48792"><code>component_48792</code></a>(S 799,765행)</td></tr><tr><td>P5</td><td>주황</td><td>화면 관측원</td><td>24</td><td>금고·화면의 그림자·보이지 않던 것</td><td><code>TEXT_62</code><br><a href="#src-component_30718"><code>component_30718</code></a>(S 606,296행)</td></tr><tr><td>P6</td><td>갈색</td><td>분실물 보관원</td><td>25</td><td>돈이 건드리는 기억·주인을 기다리는 물건</td><td><code>TEXT_63</code><br><a href="#src-component_35459"><code>component_35459</code></a>(S 657,420행)</td></tr></tbody></table></div><pre><code>if (active[p] &amp;&amp; !roleSeen[p] &amp;&amp; Bring(p, AtLeast, 1, Men, roleLocation[p])) {
+    roleSeen[p] = true;
+    display(roleText[p]);
+}</code></pre><p class="">P1~P6 초기화는 각 참가 플래그를 1로 설정하고 역할 확인 및 재진입 플래그를 지운다. 서로와 P8은 Allied Victory 관계, P7은 적 관계로 설정한다. P8 초기 자원은 미네랄 50, 가스 0이다. <a href="#src-component_51112"><code>component_51112</code></a>(S 824,510행)의 SetResources 액션으로 확인된다.</p><p class="">P8 미네랄이 2,000에 도달하는 조건은 분명하지만, 돈이 쌓이는 전체 원인은 이 두 파일만으로 확정하지 않았다. 원본 유닛 배치·채광·AI 동작을 포함한 자원 수급 전체와, 명시적으로 확인된 초기 자원/진행 임계값을 구분해야 한다.</p></section><section id="turns"><h2>4. 120초 대화권과 참가 상태</h2><div class="table-wrap"><table><thead><tr><th>저장 위치</th><th>해석한 의미</th><th>주요 값</th></tr></thead><tbody><tr><td>Deaths(P8, unit 221) · EUD 0x58CCF0</td><td>현재 질문자 번호</td><td>0=없음, 1~6=P1~P6</td></tr><tr><td>Deaths(P8, unit 222) · EUD 0x58CD20</td><td>턴 세대 번호</td><td>자동·수동 차례 변경 시 증가</td></tr><tr><td>Deaths(P8, unit 223)</td><td>대화권 시스템 활성</td><td>1=활성</td></tr><tr><td>Deaths(P8, unit 224)</td><td>다음 참가자 탐색 요청</td><td>1이면 다음 순번 결정 후 0으로 복귀</td></tr><tr><td>각 P1~P6의 unit 219 death slot</td><td>게임 참가 상태</td><td>플레이어 트리거 목록의 존재 검사와 연결</td></tr><tr><td>각 P1~P6의 unit 216 death slot</td><td>시간 안내 진행</td><td>0→1→2→3: 90·60·30초 안내</td></tr><tr><td>Switch 100~105</td><td>이번 차례 안내가 필요한 플레이어</td><td>턴 변경 시 Set, 각 플레이어에게 안내 후 Clear</td></tr></tbody></table></div><p class="">여기서 참가 상태는 현재 조종 유닛의 체력이나 생존 수가 아니다. 플레이어가 게임에 남아 있는지를 검사하는 경로와 연결된다. 캐릭터가 죽었다는 이유만으로 즉시 질문 순환에서 제외된다고 해석하면 안 된다.</p><p class="">카운트다운이 0 이하가 되면 <a href="#src-component_37716"><code>component_37716</code></a>(S 681,322행)에서 턴 세대를 1 늘리고 타이머를 120으로 설정하며 안내 상태를 초기화한다. <a href="#src-component_32478"><code>component_32478</code></a>(S 624,994행)에서 시작하는 43개 노드가 다음 참가자를 고른다. 현재 질문자가 게임에서 사라지면 타이머를 0으로 만들어 다음 순번 처리를 유도하는 분기도 있다.</p><pre><code>onTurnExpired() {
+    turnEpoch += 1;
+    turn = nextActivePlayerAfter(turn); // P1~P6를 원형으로 탐색
+    countdown = 120;
+    resetAnnouncements();
+}
+
+// P1·P3·P6만 남아 있다면: P1 → P3 → P6 → P1 ...
+// 한 명이면 계속 그 사람. 아무도 없으면 turn=0.</code></pre><p class="">해당 43노드의 조건과 액션을 그대로 평가하여 참가 상태 64가지 × 이전 차례 7가지 = 448가지를 확인했고, 다음 참가자 순환 규칙과 불일치가 없었다. 이는 차례 선택 부분에 대한 검산이며 맵 전체의 동작 동등성 검증은 아니다.</p><p class="">별도 EUD 차례 지정 루틴도 있다. <a href="#src-component_19092"><code>component_19092</code></a>(S 414,013행)의 첫 액션 값은 소스상 0이지만, 호출자가 <a href="#src-component_15914"><code>component_15914</code></a>(S 380,133행)에서 그 액션의 amount 필드를 덮어쓴다. 실제로는 지정한 순번을 설정하는 함수이며, 항상 0번으로 초기화하는 코드로 읽으면 잘못된다.</p></section><section id="mainphase"><h2>5. 주요 사건: 미네랄·NPC·재진입·변신</h2><p class="">주 진행 상태는 <code>Deaths(P8, unit 210)</code>, 즉 EUD 주소 <code>0x58CAE0</code>다. 설명을 위해 <code>mainPhase</code>라는 이름을 붙였다. 원래 소스 변수명을 복원한 것은 아니다.</p><div class="table-wrap"><table><thead><tr><th>단계</th><th>조건과 행동</th><th>근거</th></tr></thead><tbody><tr><td>0 → 1</td><td>P8 미네랄이 2,000 이상이면 첫 NPC 생성 준비. 재시도 상태와 P7 질럿 사망 수를 초기화.</td><td><a href="#src-component_33994"><code>component_33994</code></a>(S 641,775행)</td></tr><tr><td>1 → 2</td><td>P7 질럿(unit 65)을 로케이션 30에 생성하고, 보유가 확인되면 단계 2. 출력 알림은 “7시 황산피해자”.</td><td><a href="#src-component_36159"><code>component_36159</code></a>(S 664,849행)<br><a href="#src-component_37187"><code>component_37187</code></a>(S 675,705행)</td></tr><tr><td>2 → 3</td><td>P7 질럿 사망 수가 1 이상이고 현재 보유 수가 0이면 진행.</td><td><a href="#src-component_41771"><code>component_41771</code></a>(S 724,663행)</td></tr><tr><td>3 → 4</td><td>참가자의 Men 유닛이 로케이션 31 밖에 있는 상태를 확인한 뒤, 안으로 들어오면 다음 단계. 처음부터 안에 서 있는 경우를 구분하는 진입 플래그가 있다.</td><td><a href="#src-component_43470"><code>component_43470</code></a>(S 742,883행)<br><a href="#src-component_34202"><code>component_34202</code></a>(S 643,970행)</td></tr><tr><td>4 → 5</td><td>P7 울트라리스크(unit 39)를 로케이션 43에 생성. 보유 확인 후 단계 5. 출력 알림은 “12시 피해자어머니”.</td><td><a href="#src-component_23407"><code>component_23407</code></a>(S 459,924행)<br><a href="#src-component_14866"><code>component_14866</code></a>(S 368,954행)</td></tr><tr><td>5 → 6</td><td>P7 울트라리스크 사망 수가 1 이상이며 현재 보유 수가 0.</td><td><a href="#src-component_25756"><code>component_25756</code></a>(S 485,065행)</td></tr><tr><td>6 → 7</td><td>조롱혐오 변신 이벤트(bit 0x40)를 발생시키는 경로에서 mainPhase가 6이면 7로 변경. 변신과 단계 변경의 연결을 확인했으며, 정확한 접촉 거리까지 복원한 것은 아니다.</td><td><a href="#src-component_10138"><code>component_10138</code></a>(S 319,089행)<br><a href="#src-component_20054"><code>component_20054</code></a>(S 424,172행)</td></tr><tr><td>7의 준비</td><td>P8의 Men과 Buildings를 KillUnit으로 제거하고 세 번째 NPC 생성 상태를 초기화.</td><td><a href="#src-component_18823"><code>component_18823</code></a>(S 411,121행)</td></tr><tr><td>7 → 8</td><td>P7 배틀크루저(unit 12)를 로케이션 45에 생성하고 보유 확인. 출력 알림은 “3시 심장에황산뿌려짐”.</td><td><a href="#src-component_12913"><code>component_12913</code></a>(S 348,491행)<br><a href="#src-component_50983"><code>component_50983</code></a>(S 823,156행)</td></tr><tr><td>8 → 9</td><td>P7 배틀크루저 사망 수가 1 이상이고 현재 보유 수가 0이면 사건 기록 진행 조건 성립.</td><td><a href="#src-component_31300"><code>component_31300</code></a>(S 612,412행)</td></tr></tbody></table></div><p class="">원본 유닛 타입과 맵에서 표시하는 이름을 구분해야 한다. 위 세 이름은 문자열만 대입한 추측이 아니라, P7 소유 유닛의 타입 검사→이벤트 플래그→출력 선택 경로를 연결해 확인했다. 각 등장 안내는 seen 플래그로 한 번만 선택되고, 다음 안내 선택에는 48게임틱 간격 제한이 있다.</p><p class="">NPC 생성은 한 번 시도하고 끝내는 형태가 아니다. 생성 확인 전에는 24회의 해당 처리 패스 후 재시도하는 카운터가 있고, 생성 실패 횟수는 64까지 세는 코드가 있다. 이 24를 현실 시간 24초로 읽으면 안 된다. 또한 mainPhase≤6 동안 P8 유닛의 무적 상태를 유지하는 경로가 있으며, mainPhase≥7에는 P8 unit 10을 로케이션 46에 생성하는 별도 경로도 존재한다.</p><pre><code>// 실제 component_33994를 의미대로 정리한 의사코드
+if (D[P8][210] == 0 &amp;&amp; minerals[P8] &gt;= 2000) {
+    D[P8][210] = 1;
+    D[P8][212] = 0;
+    D[P8][213] = 0;
+    D[P7][65] = 0;
+}</code></pre></section><section id="interactions"><h2>6. 이름표·아이템·변신 알림</h2><p class="">각 플레이어의 이벤트 비트를 따로 모으고, 그 값을 해석해 해당 플레이어에게 문구를 출력하는 구조가 있다. 동일한 문구가 여섯 번 저장된 이유도 대체로 이 플레이어별 분기 확장 때문이다. <code>S_opaque_source_storage + 7780900</code>에서 시작하는 배열이 한 이벤트 비트필드로 사용된다.</p><div class="table-wrap"><table><thead><tr><th>이벤트 비트</th><th>출력/의미</th><th>확인 수준</th></tr></thead><tbody><tr><td>0x01</td><td>“저 사람은 컵라면이 필요하대. 서쪽에 두고 왔나 봐.”</td><td>이벤트→문구 선택 확인</td></tr><tr><td>0x02</td><td>“컵라면을 받았다.”</td><td>이벤트→문구 선택 확인</td></tr><tr><td>0x04</td><td>시디를 만지자 몸이 바뀌고 총이 손에 붙었다는 안내</td><td>이벤트→문구 선택 확인</td></tr><tr><td>0x08</td><td>성폭행범 이름표 안내</td><td>이벤트→문구 선택 확인</td></tr><tr><td>0x10</td><td>황산테러자 이름표 안내</td><td>이벤트→문구 선택 확인</td></tr><tr><td>0x20</td><td>다시 눈을 떴다는 안내와 각 슬롯의 재등장 이름</td><td>이벤트→문구 선택 확인</td></tr><tr><td>0x40</td><td>조롱혐오 변신 안내</td><td>이벤트 선택과 mainPhase 6→7 연결 확인</td></tr><tr><td>0x80</td><td>아래가빨개 변신 안내</td><td>이벤트→문구 선택 확인</td></tr></tbody></table></div><p class="">재등장 안내의 이름은 피·스·오·S·M·생체인간이며, 처음 받는 여섯 직업 역할과 별개다. HUD에는 현재 이름표와 현재 질문자, 주남희의 미네랄·가스·인구 등을 표시하는 문구가 들어 있다.</p><p><strong>표시 문구와 유닛 변경 요청의 연결도 확인했다.</strong> 시디 접촉 경로는 기존 몸이 Civilian(unit 15)인지 검사한 뒤 공통 치환 루틴에 새 몸 Marine(unit 0)을 넘긴다. 나머지 변신도 같은 공통 처리기로 아래 새 유닛 ID를 전달하고 해당 이벤트 비트를 세운다. 모든 변신이 한 줄로 고정된 순서라는 의미는 아니다.</p><div class="table-wrap"><table><thead><tr><th>변신 안내</th><th>새 몸으로 전달하는 유닛 타입</th><th>근거</th></tr></thead><tbody><tr><td>시디를 만져 총이 붙었다</td><td>0 · Marine — 이 경로의 이전 몸은 Civilian 15로 검사</td><td>component_23431 · S 460,181행 / component_2643 · S 239,622행</td></tr><tr><td>성폭행범</td><td>66 · Dragoon</td><td>component_44587 · S 754,783행</td></tr><tr><td>황산테러자</td><td>46 · Defiler</td><td>component_10063 · S 318,252행</td></tr><tr><td>조롱혐오</td><td>62 · Devourer</td><td>component_24939 · S 476,323행</td></tr><tr><td>아래가빨개</td><td>32 · Firebat</td><td>component_1250 · S 224,754행</td></tr></tbody></table></div><p>컵라면 획득 경로는 중립 플레이어 P12 소유의 unit 218(Data Disc)을 감시한다. 살아 있는 유닛인지와 거리·영역 조건을 검사하고, 로케이션 35 좌표를 사용하는 경로를 거쳐 해당 플레이어의 이벤트 bit 0x02를 세운다. P1 예시는 component_18740(S 410,214행)과 component_4434(S 258,584행)이며, 나머지 5인에도 대응 경로가 있다. “컵라면을 받았다”는 이름만 보고 순정 스타크래프트에 음식 아이템 타입이 있다고 생각하면 안 된다.</p><p>재등장 안내 이름의 슬롯 대응은 P1=M, P2=S, P3=오, P4=피, P5=스, P6=생체인간이다. 이것은 이름표 문구의 대응표이며, 여섯 기본 역할명이나 모든 상황의 유닛 타입을 뜻하지 않는다.</p></section><section id="history"><h2>7. 탈출 질문과 사건 기록은 조건에 따라 자동 진행한다</h2><p class=""><strong>“주남희를 버리고 탈출하시겠습니까?”는 여기서 선택지를 입력받는 UI가 아니라 반복 출력되는 대사다.</strong> <a href="#src-component_39612"><code>component_39612</code></a>(S 701,662행)가 주 상태를 읽고, <a href="#src-component_7907"><code>component_7907</code></a>(S 295,447행)에서 mainPhase 6~9이면 질문 문구를 활성화한다. 질문 횟수를 최대 5회로 제한하며, 선택한 뒤 다음 가능 시각을 현재 게임틱+72로 정한다.</p><p class="">mainPhase가 9이면 <a href="#src-component_4454"><code>component_4454</code></a>(S 258,808행)에서 사건 기록을 활성화한다. 질문 문구의 할당된 횟수가 소진된 뒤 사건 기록 19개(stage 2~20)를 168게임틱 간격으로 진행한다. 상대 NPC를 모두 처치해 도달한 상태와 스케줄러가 이 흐름을 결정한다.</p><p class="">첫 서사 선택 값은 <code>S_component_29394 + 574612</code>다. stage 1은 탈출 질문, stage 2는 “지금부터는 실제 사건 기록이다.”, stage 3~19는 맵에 수록된 사건 연혁, stage 20은 “기록은 끝났다. 너희는 이 맵에 영원히 다 갇힌다.”다. 전체 원문과 분기 위치는 부록에 있다.</p><pre><code>updateStoryAvailability() {
+    if (6 &lt;= mainPhase &amp;&amp; mainPhase &lt;= 9) questionSequenceEnabled = true;
+    if (mainPhase == 9) historySequenceEnabled = true;
+}
+
+onStorySchedulerReady() {
+    if (questionSequenceEnabled &amp;&amp; questionCount &lt; 5) {
+        emitStoryStage(1);
+        questionCount += 1;
+        nextStoryTick = now + 72;
+    } else if (historySequenceEnabled &amp;&amp; historyCount &lt; 19) {
+        emitStoryStage(2 + historyCount);
+        historyCount += 1;
+        nextStoryTick = now + 168;
+    }
+}</code></pre><p class="">제한적 명령 검산에서도 mainPhase=6일 때 첫 대사가 5번 선택되고 그 뒤에는 선택되지 않으며, mainPhase=9로 바꾸면 stage 2,3,4…가 선택되는 것을 확인했다. 여기에 사용한 72·168은 게임틱 단위이며 게임 속도와 실시간의 관계를 이 EPS만으로 고정하지 않았다.</p></section><section id="epilogue"><h2>8. 마지막 대사 뒤의 에필로그와 재생 표식</h2><p class="">사건 기록 stage 20의 출력이 끝나면 <a href="#src-component_19946"><code>component_19946</code></a>(S 423,020행)의 조건을 거쳐 <a href="#src-component_36283"><code>component_36283</code></a>(S 666,161행)에서 별도 연출 상태 <code>S_component_29394 + 574972</code>를 1로 만든다. 따라서 “영원히 갇힌다”라는 문구 뒤에도 프로그램은 계속 진행된다.</p><p class="">후속 대사 선택 값은 <code>S_component_29394 + 575404</code>이고 20문장이 있다. 방과 바닥이 생각의 잔여물이라는 설명, 통 속의 뇌, 집으로 돌아갈 주소가 없다는 설명, 남은 목소리를 다시 듣는 표식으로 이어진다. 이 문장들도 실제 stage==n 조건과 출력 호출을 연결해 확인했다.</p><p class="">연출 상태 10에서 후속 대사 카운터가 20이 되면 11로, 재생 중인 상태 13에서 20이 되면 12로 넘어간다. 상태 12의 로케이션 67 진입 검사가 재생을 시작한다. P1~P6의 참가 상태와 Men 유닛의 Bring 조건을 확인하고, 직전에 안에 있었는지를 따로 저장한다.</p><p class=""><strong>동쪽 표식의 재생 범위는 후속 대사 6~20번, 총 15문장이다.</strong> 진입 시 <a href="#src-component_40060"><code>component_40060</code></a>(S 706,455행)에서 상태를 13으로 바꾸고 <a href="#src-component_43520"><code>component_43520</code></a>(S 743,411행)에서 카운터를 5로 설정하므로 다음 대사는 6번이 된다. 안에 계속 서 있는 동안에는 다시 진입한 것으로 처리하지 않는다. 한 번 나갔다가 들어와야 새 진입 이벤트가 생긴다.</p><div class="table-wrap"><table><thead><tr><th>후속 연출 상태</th><th>실제 동작 / 다음 단계 조건</th></tr></thead><tbody><tr><td>1 → 2</td><td>로케이션 55에 P8 Shuttle(unit 69) 1기 생성 후 P12(Neutral)로 양도. HP를 256(게임 표시 1HP), 보호막을 0으로 설정한다. “7시 집으로...” 안내와 연결된다.</td></tr><tr><td>2 → 3</td><td>저장해 둔 셔틀의 사망 상태와 P12 Shuttle의 사망 카운터 증가를 함께 확인한다. 탑승한 사람 수로 넘어가는 검사가 아니다.</td></tr><tr><td>3 → 4</td><td>P7 Marine(unit 0, 로케이션 56) 생성·KillUnit 연출을 반복하며 횟수를 센다. 카운터가 20에 도달하면 다음 상태로 간다.</td></tr><tr><td>4 → 5</td><td>P1~P6의 Men을 각각 KillUnit으로 처리한다.</td></tr><tr><td>5 → 6</td><td>시점을 로케이션 57로 이동하는 경로를 거친다.</td></tr><tr><td>6 → 7 → 8</td><td>여섯 슬롯에 각각 새 몸을 생성한다. 아래 표의 유닛/플레이어 인수와 로케이션을 확인했다. 중간에 지연 상태가 있다.</td></tr><tr><td>8 → 9</td><td>P7 Kerrigan(unit 16)을 로케이션 65에 생성하고, sequel\residual_thought.wav를 재생하는 경로로 간다. 이 유닛이 “목소리”라는 등장 안내에 연결된다.</td></tr><tr><td>9 → 10</td><td>목소리 유닛의 사망 상태와 P7 unit 16 사망 카운터 증가가 확인되면 후속 대사 1~20을 시작한다.</td></tr><tr><td>10 → 11 → 12</td><td>후속 대사 20개를 마치면 로케이션 67에 중립 Terran Beacon(unit 195)을 만드는 경로를 거쳐 재생 대기 상태로 간다.</td></tr><tr><td>12 → 13 → 12</td><td>참가자의 Men이 로케이션 67로 새로 들어오면 후속 대사 6~20을 재생하고, 끝나면 다시 진입 대기 상태로 복귀한다.</td></tr></tbody></table></div><div class="table-wrap"><table><thead><tr><th>슬롯</th><th>새 몸의 원래 유닛 타입</th><th>생성 로케이션</th></tr></thead><tbody><tr><td>P1</td><td>29 · Norad II</td><td>58</td></tr><tr><td>P2</td><td>52 · Unclean One</td><td>59</td></tr><tr><td>P3</td><td>5 · Siege Tank (Tank Mode)</td><td>60</td></tr><tr><td>P4</td><td>34 · Medic</td><td>61</td></tr><tr><td>P5</td><td>38 · Hydralisk</td><td>62</td></tr><tr><td>P6</td><td>44 · Guardian</td><td>63</td></tr></tbody></table></div><p>위 후속 연출은 단순한 대사 목록 이상의 상태기계다. 실제 사용자의 행동과 연결되는 문턱은 셔틀의 파괴 확인, 목소리 유닛의 파괴 확인, 재생 표식으로의 진입이다. 유닛 생성 이후의 필드를 가정한 제한적 검산으로 각 분기의 입력 인수를 확인했으며, 원본 맵에서 전투 난이도나 연출 화면까지 재현한 결과는 아니다. 주요 근거: component_5153(S 266,150행), component_2890(S 242,218행), component_13889(S 358,744행), component_25711(S 484,577행), component_4173(S 255,837행).</p><p class="">명시된 Action 타입 전체에서 표준 Victory(type 1)와 Draw(type 56)는 없었다. 유일한 Defeat(type 2)는 <a href="#src-component_24757"><code>component_24757</code></a>(S 474,377행)에 있으며, type 3 강퇴 패킷을 처리해 대상 플레이어의 CP로 바꾼 후 도달하는 경로임을 확인했다. 정상 서사 엔딩을 승리/패배로 끝내는 액션으로 분류할 수는 없다. “표준 승리 액션을 찾지 못했다”와 “모든 가능한 방식으로 게임 종료가 불가능하다”는 서로 다른 주장이다.</p></section><section id="questions"><h2>9. 채팅 질문·동기화·외부 메모리 영역</h2><p class="">핵심 메모리 영역은 <code>M = S_opaque_source_storage + 14620412</code>다. 헤더에는 <code>JUNAMHEE_1999_MAILBOX_20261004V5</code> 식별 문자열, 버전 값 1, 크기 <code>0x2000</code>(8,192바이트)이 들어 있다. <a href="#src-component_41362"><code>component_41362</code></a>(S 720,323행)에서 이 주소를 런타임 변수에 넣는다.</p><p class="">질문은 동기화 입력의 type 1 패킷으로 처리되며, <a href="#src-component_29908"><code>component_29908</code></a>(S 597,666행)에서 송신자 범위와 길이를 검사한다. <a href="#src-component_37294"><code>component_37294</code></a>(S 676,868행)의 검사 경로에서 현재 턴 세대, 현재 질문자, 참가 플래그, 접두사 4, 공백 외 내용이 맞아야 요청이 기록된다.</p><div class="table-wrap"><table><thead><tr><th>검사</th><th>의미</th></tr></thead><tbody><tr><td>sender 0~5</td><td>P1~P6만 질문자로 처리한다.</td></tr><tr><td>패킷 길이 10~86바이트</td><td>앞 8바이트 헤더를 제외한 질문은 2~78바이트다. 접두사 4도 여기에 포함된다.</td></tr><tr><td>첫 DWORD == Deaths(P8,222)</td><td>이전 턴에서 온 오래된 질문 패킷을 현재 턴에 섞지 않기 위한 세대 검사다.</td></tr><tr><td>둘째 DWORD == sender+1 == Deaths(P8,221)</td><td>주장하는 질문자, 실제 발신 슬롯, 현재 차례가 일치해야 한다.</td></tr><tr><td>Deaths(sender,219)==1</td><td>현재 참가자여야 한다.</td></tr><tr><td>첫 바이트 0x34</td><td>문자 4로 시작하는 질문을 확인한다.</td></tr><tr><td>공백 외 내용 검사</td><td>내용 없이 접두사/공백만 들어 있는 입력을 구분한다.</td></tr></tbody></table></div><p class="">수락된 질문의 저장 주소는 <code>M + 0x80 + 128 × sender</code>다. 여기에 다음 구조가 기록된다. <a href="#src-component_47732"><code>component_47732</code></a>(S 788,580행) 및 <a href="#src-component_43501"><code>component_43501</code></a>(S 743,215행)의 경로와 작은 입력 사례로 데이터 배치를 확인했다.</p><div class="table-wrap"><table><thead><tr><th>레코드 내부 오프셋</th><th>내용</th></tr></thead><tbody><tr><td>+0</td><td>새 요청 시퀀스</td></tr><tr><td>+4</td><td>턴 세대 번호</td></tr><tr><td>+8</td><td>질문자 번호 1~6</td></tr><tr><td>+12</td><td>질문 바이트 길이</td></tr><tr><td>+16</td><td>질문 바이트열 — 접두사 4 포함</td></tr><tr><td>+100</td><td>같은 요청 시퀀스를 다시 기록하는 확인 필드</td></tr></tbody></table></div><pre><code>// 전송 계약을 설명하기 위한 의사코드
+if (packet.type == 1
+    &amp;&amp; packet.turnEpoch == D[P8][222]
+    &amp;&amp; packet.sender + 1 == packet.turnNumber
+    &amp;&amp; packet.turnNumber == D[P8][221]
+    &amp;&amp; D[packet.sender][219] == 1
+    &amp;&amp; questionHasPrefix4AndContent(packet.text)) {
+    writeQuestionRecord(M + 0x80 + packet.sender * 128, packet);
+}</code></pre><p class="">입력 예시 “4안녕”은 올바른 턴/참가 조건에서 저장되었고, 같은 입력의 턴 번호를 바꾸거나 옛 세대를 넣거나 접두사 4를 제거하면 요청 칸이 갱신되지 않았다. 이것은 요청 검증 루틴에 대한 제한적 검산이다.</p><p class="">헤더에는 갱신 카운터(+0x28), 로컬 플레이어 ID(+0x2C), 현재 턴 세대(+0x30), 현재 질문자(+0x38)를 내보내는 코드가 있다. 응답·영상·음성 영역은 아래 미디어 및 추가 프로토콜 설명을 함께 봐야 한다.</p><h3>동기화 패킷의 여섯 종류</h3>
+<div class="table-wrap"><table><thead><tr><th>type</th><th>주요 입력 제한</th><th>확인한 용도</th></tr></thead><tbody>
+<tr><td>1</td><td>송신자 P1~P6, 10~86바이트</td><td>현재 질문자의 질문 요청</td></tr>
+<tr><td>2</td><td>송신자 P1, 40~200바이트</td><td>외부 응답 대사 또는 명령 데이터</td></tr>
+<tr><td>3</td><td>송신자 P1, 8바이트</td><td>대상 슬롯 강퇴</td></tr>
+<tr><td>4</td><td>송신자 P1, 20~180바이트</td><td>음절 음성 패킷 — 별도 검사에서 음절 수 1~80 요구</td></tr>
+<tr><td>5</td><td>송신자 P1, 4바이트</td><td>특수 소환</td></tr>
+<tr><td>6</td><td>송신자 P1~P6, 4바이트</td><td>현재 차례 넘김 — 세대·차례·참가 상태 검사</td></tr>
+</tbody></table></div>
+<p>송신자는 dispatcher의 0 기반 슬롯 번호다. 이것은 맵 내부 수신 권한 검사이며, 외부 서비스의 인증 구조를 뜻하지 않는다. type 2의 mode 2는 40바이트 헤더 뒤에 최대 160바이트 텍스트를 붙이는 형식이다. 헤더의 처음 네 DWORD는 시퀀스, mode, 수신 플레이어(0~5), 요청 시퀀스이며 마지막 DWORD(+36)가 텍스트 바이트 길이다. 중간 다섯 DWORD의 모든 용도는 확정하지 않았다. 전체 길이가 40+textByteLen인지 component_48618(S 797,912행)에서 검사한다.</p>
+<p>유효한 질문을 수락한 뒤 이에 대응하는 응답을 넣으면 “주남희:” 접두사와 TEXT_3287 버퍼를 구성하는 출력 경로에 들어간다. 암호화 문자열용 재구성 런타임이 첨부되지 않아 이 검산에서 실제 화면의 완성 문장까지 재현하지는 않았다. 문자열 포인터와 출력 호출을 연결한 정적 근거로 응답 표시 용도를 확인했다.</p>
+<p><strong>type 2의 mode 1에는 대사 외에 opcode 1~25의 명령 데이터를 수락하는 경로가 있다.</strong> unit ID 0~227 또는 특수값 1000~1004, 좌표 상한 4095, 수량 1~30 등의 공통 검증과 opcode별 인자 그룹 검사가 보인다. 검증 후 component_34953에서 opcode를 opaque+18511704의 배열에 저장하며, unit 등 나머지 값도 병렬 배열에 넣는다. 소비 경로 component_6106 → component_22867은 opcode, unit, x, y, 수량, mode, 두 번째 unit, value, 추가 인수의 아홉 값을 읽는다.</p>
+<p>따라서 외부 응답 채널에 텍스트 외의 명령 큐가 존재한다는 것은 확인됐다. 다만 opcode 1~25 전체의 최종 효과를 각각 이름에 대응시키지는 못했다. 검증기의 enum 비교를 실제 효과 디스패치로 오인하지 않도록 미확정으로 남겼다.</p><p>명령 데이터의 바이트 배치는 +16 opcode, +20 unit, +24 x, +28 y, +32 수량, +40 mode, +44 두 번째 unit, +48 value, +52 추가 인수로 확인했다. +36은 공통 헤더의 textByteLen 자리다. 입력 길이가 40·48·52·56바이트일 때 선택 인수를 순서대로 읽으며, 없는 값은 mode=0, 두 번째 unit=228, value=0, 추가 인수=0으로 초기화한다. 이 필드명은 읽는 방식에 붙인 설명 이름이며 모든 opcode에서 같은 의미로 사용된다고 단정하지 않았다.</p><p><strong>실제 메모리 효과까지 확인한 예는 opcode 14의 생산 큐 항목 제거다.</strong> opcode=14, unit=0(Marine), 수량=1을 검증기에서 수락한 뒤 큐에 넣고 소비하도록 했다. P8 Barracks에 Marine 생산 큐 하나가 있다고 가정한 CUnit 메모리를 제공하자, <a href="#src-component_14518"><code>component_14518</code></a>(S 365,383행)의 +0x98 생산 큐 처리와 <a href="#src-component_43951"><code>component_43951</code></a>(S 748,057행)의 228(None) 값을 거쳐 <a href="#src-component_15113"><code>component_15113</code></a>(S 371,558행)가 첫 생산 항목을 0에서 228로 비웠다. CUnit의 +0x98이 5개의 16비트 생산 큐 슬롯이라는 구조는 <a href="https://github.com/bwapi/bwapi/blob/main/bwapi/BWAPI/Source/BW/CUnit.h">BWAPI CUnit.h</a>와도 대조했다. 외부 응답이 실제 게임 유닛 구조를 수정하는 기능을 포함한다는 구체적인 예다. 생산 비용 환불이나 모든 명령의 최종 효과까지 확인한 결과는 아니다.</p><p><strong>opcode 1은 생산 요청에 연결된다.</strong> Marine(unit 0) 생산 요청을 검증기에서 수락한 뒤, P8 Barracks의 생산 큐가 모두 228(None)인 합성 상태를 넣었다. 같은 <a href="#src-component_15113"><code>component_15113</code></a>이 첫 슬롯을 228에서 0(Marine)으로 바꾸었고, <a href="#src-component_34431"><code>component_34431</code></a>은 유닛 구조 +0xA6의 secondaryOrder 값을 0x26으로 설정했다. 따라서 외부 명령의 대표 두 기능으로 opcode 1의 생산 요청, opcode 14의 생산 큐 항목 제거를 구별할 수 있다. 이 검산은 큐와 명령 필드의 전이까지 확인한 것이며 실제 생산 완료·비용 처리·게임 실행 전체를 재현한 것은 아니다.</p><p>질문 레코드를 기록할 때는 +0의 요청 시퀀스를 먼저 0으로 만들고 내용·추적값을 작성한 뒤, 마지막에 새 시퀀스를 +0에 넣어 완료를 표시한다. 외부 처리기는 질문 문자열만 보는 것이 아니라 이 완료 표시와 요청 시퀀스를 함께 읽도록 설계되어 있다.</p><p class=""><strong>외부 GPT 처리기의 실제 코드·모델·프롬프트·API 주소는 이 두 EPS에 없다.</strong> 확인된 것은 질문을 기록하고 응답 및 미디어 패킷을 처리하는 맵 쪽 계약이다. 이름에 GPT가 있다는 이유로 고정 사건 대사까지 모두 실시간 생성이라고 해석할 수 없고, 이 파일만으로 외부 서비스가 현재 정상 응답한다고 검증할 수도 없다.</p></section><section id="media"><h2>10. 작은 영상판과 한글 음절 음성</h2><p class="">영상 관련 데이터에는 <code>SC_MINIMAP_BOARD_V3</code> 식별자가 있고, <a href="#src-component_24221"><code>component_24221</code></a>(S 468,578행)의 공유 설정에는 32,32,256,2가 들어 있다. 맵 설명의 32×32·4색 압축 영상과 일치하는 구조다. 32×32 픽셀을 픽셀당 2비트로 표현하면 256바이트라는 관계도 맞는다.</p><p>입력 control DWORD의 상위 2비트를 mode로, 하위 30비트를 sequence로 분리한다(component_10239, S 320,178행 / component_29779, S 596,327행). 여러 mode 분기 가운데 <strong>mode 0의 전체 프레임 디코더에서 raw와 PackBits RLE 두 경로</strong>를 확인했다. 다른 mode의 의미를 모두 복원한 것은 아니다.</p>
+<p>입력 영역 opaque+13928724에서 16비트 압축 길이를 읽고, 바로 뒤의 1바이트 codec과 payload를 처리한다. codec 0은 256바이트 원본 경로, codec 1은 PackBits식 반복/리터럴 복원 경로다. 복원 결과는 opaque+12897064에 놓인다. component_33251(S 634,008행) 및 component_27311(S 501,687행)에서 시작하는 처리를 확인했다.</p>
+<p>검산 예시는 압축 입력 <code>81 55 81 AA</code> 4바이트다. 이를 0x55 128개와 0xAA 128개, 합계 정확히 256바이트로 풀었고 성공 플래그가 세워졌다. 불충분한 입력 <code>00 55</code>는 성공 처리되지 않았다. 이후 component_7127에서 이어지는 경로가 2비트 그룹을 lookup(opaque+5852968)으로 재배열하여 opaque+8161296의 64 DWORD 프레임 버퍼에 쓴다. 위 입력에서는 0x55555555 32개와 0xAAAAAAAA 32개를 확인했다. 실제 클라이언트의 최종 픽셀 표시·색상·FPS는 검증하지 않았다.</p><p class="">음성은 <code>v\XXXX.wav</code> 파일명 3,192개와 <code>sequel\residual_thought.wav</code>를 참조한다. 앞의 3,192개는 긴 대사를 각각 녹음한 목록으로 보기 어렵다. 파일명의 16진수 값에 0xAC00을 더하면 한글 음절이 되고, 목록은 초성·중성 399조합에 제한된 종성 변형을 배치한 패턴이다. 예를 들어 <code>v\0000.wav</code>는 “가”에 해당하는 코드다.</p><p class="">런타임에는 한글 음절 인덱스 상한 <code>0x2BA3</code>(11,171) 검사와 동적 PlayWAV 호출이 있다. <a href="#src-component_30129"><code>component_30129</code></a>(S 600,026행) 및 <a href="#src-component_14011"><code>component_14011</code></a>(S 360,012행)를 참고하면 된다. 재생할 WAV ID는 <a href="#src-component_5420"><code>component_5420</code></a>(S 268,983행)에서 액션 필드를 바꿔 넣는다. 정적인 PlayWAV 호출 <a href="#src-component_37382"><code>component_37382</code></a>(S 677,809행)는 <code>sequel\residual_thought.wav</code>를 가리킨다.</p><p>수신 type 4 패킷은 음절 음성 패킷으로 연결된다. 5개의 DWORD 헤더(20바이트) 뒤에 음절 번호를 2바이트씩 붙이며, mode 1, 음절 수 1~80, 전체 길이 20+2×음절 수라는 검사가 있다. 각 번호는 0~11,171 범위인지 확인한다. component_15683(S 377,605행), component_45586(S 765,435행)이 이 검사에 포함된다. 현재 음성/요청 식별값과 맞는 패킷이 수락되면 큐 수와 재생 상태가 갱신된다.</p>
+<p><strong>음절 번호는 한글 코드포인트에서 0xAC00을 뺀 값이며, 맵은 이를 제한된 음원 목록에 대응시킨다.</strong> component_30129부터 시작하는 루틴을 평가하면 code 0은 WAV ID 93(가), code 1은 ID 94(각), code 2(갂)도 ID 94(각)로 간다. code 4는 ID 95(간), code 28은 ID 101(개), code 0x101F는 ID 1275(밟), code 11,171은 ID 3280으로 연결된다. 따라서 모든 한글 음절마다 별도 녹음이 있는 구조는 아니며 일부 종성을 대체해 재생한다.</p>
+<p>파일명 목록은 19×21×8=3,192개의 음절 변형을 이루며, 종성 나머지 값은 대체로 0,1,4,7,8,10,14,21이다. 단 하나의 예외 파일명 <code>v\101f.wav</code>는 “밟”에 해당한다. 확인한 맵 쪽 음성 처리는 음절 음원을 선택해 PlayWAV를 연속 호출하는 방식이다. 외부 처리기에서 추가 합성·정규화를 하는지는 그 코드가 없어 확인하지 못했다.</p><p>type 4의 mode 2는 음성 큐 취소에 연결된다. 전체 길이 20바이트, 옵션과 음절 수가 0인 제어 입력에서는 component_38004(S 684,368행)를 거쳐 큐 수가 0으로 줄고 재생 인덱스들이 초기화되며 상태가 5로 바뀌는 것을 확인했다.</p><p class="">첨부된 EPS에는 WAV 경로가 있으며, 음원 데이터 자체는 없다. 따라서 여성 목소리인지, 실제 발음·자연스러움·누락 음절·음질이 어떤지 청취 검증한 결과는 아니다. 설명 문자열에 있는 “여성 음성 재생 개선”과 실제 음원 품질은 구분했다.</p></section><section id="commands"><h2>11. 숨은 명령 인식 경로</h2><div class="table-wrap"><table><thead><tr><th>문자열</th><th>코드에서 확인된 처리</th></tr></thead><tbody><tr><td>@강퇴 파랑 / 청록 / 보라 / 주황 / 갈색</td><td>각 대상의 슬롯 값을 반환하는 문자열 비교가 있다. 색 접미사를 붙인 변형도 있으며 실제 데이터에 “갈색색”도 존재한다. 파랑=1, 청록=2, 보라=3, 주황=4, 갈색=5로 처리된다.</td></tr><tr><td>!넘김</td><td>길이 7바이트의 비교 경로가 있고, 성공 플래그 및 후속 동기화 신호 처리로 이어진다. <a href="#src-component_6332"><code>component_6332</code></a>(S 278,715행) / <a href="#src-component_20070"><code>component_20070</code></a>(S 424,349행)</td></tr><tr><td>!김치털asdf소환</td><td>길이 20바이트의 비교 경로와 별도 조건 및 시간 제한 상태가 있다. <a href="#src-component_27298"><code>component_27298</code></a>(S 501,542행) / <a href="#src-component_23789"><code>component_23789</code></a>(S 464,015행)</td></tr></tbody></table></div><p><strong>제어 패킷과 실제 효과도 연결했다.</strong> type 3은 P1(sender 0)의 8바이트 패킷만 수락하는 강퇴 경로다. 시퀀스 1·대상 3(P4)을 넣고 참가 플래그를 세운 제한적 검산에서, 대상의 unit 219 참가 플래그를 0으로 바꾼 뒤 CP=3 상태에서 component_24757의 Defeat에 도달했다. 표준 패배 액션을 대상에게 실행해 탈락시키는 구현이다.</p><p>type 6은 현재 질문자의 차례 넘김 경로다. P1 차례·턴 세대 5에서 P1의 세대 5 패킷을 처리하면 다음 참가자인 P2로 차례가 바뀌고 턴 세대는 6으로 증가했다. 실제 component_19092의 패치된 액션에서 차례 변경·타이머 120·공지 초기화를 확인했다. type 5의 P1 제어 패킷은 component_24551(S 472,142행)의 CreateUnit 호출에 도달하며, Mutalisk(unit 43) 1기를 P1로 생성하는 인수를 확인했다. 이는 특수 소환 문자열과 연결된 경로다.</p><p>이 검산은 해당 루틴의 지원 EUD 연산과 호출 인수를 확인한 것이며, 실제 클라이언트를 강퇴하거나 유닛을 생성한 실행 기록이 아니다. 강퇴 전송은 P1 송신 패킷만 받으며, 차례 넘김에는 현재 차례·턴 세대·참가 상태를 보는 검사가 있다.</p><p class="">위 명령의 효과는 문자열 이름으로만 추정하지 않고, 명령 인식과 동기화 패킷 수신 및 게임 액션 경로를 연결해 정리했다. 권한 패킷의 송신 슬롯 검사와 로컬 채팅의 이름 판별은 별개의 층이므로, 단순히 채팅 내용을 복사하는 모든 플레이어가 같은 권한을 얻는다고 해석하면 안 된다.</p></section><section id="rawmeaning"><h2>12. RawTrigger를 실제 의미로 읽는 방법</h2><p class="">이 맵에서는 Deaths/SetDeaths가 전투 중 사망한 유닛을 세는 기능과 변수·메모리 접근 양쪽에 사용된다. 일반적인 논리 주소 계산은 <code>0x58A364 + player×4 + unit×48</code>이며, <code>EPD(address)</code>로 만든 플레이어 인수를 사용하면 특정 DWORD를 읽고 쓸 수 있다. 아래의 고정 주소는 EPS가 쓰는 EUD 주소 기준이다.</p><div class="table-wrap"><table><thead><tr><th>패턴</th><th>의미</th></tr></thead><tbody><tr><td>Deaths(EPD(X), Exactly, n, 0)</td><td>X에 저장한 값이 n인지 비교한다.</td></tr><tr><td>SetDeaths(EPD(X), SetTo/Add/…, n, 0)</td><td>X의 값에 대입·덧셈 등의 연산을 수행한다.</td></tr><tr><td>SetDeaths(EPD(T+4), SetTo, U, 0)</td><td>T의 nextptr를 바꿔 다음 실행 노드를 U로 연결한다. 조건부로 실행되면 분기다.</td></tr><tr><td>변수 노드 T+344</td><td>그 변수 액션의 쓰기 대상(dest)을 저장하는 필드.</td></tr><tr><td>변수 노드 T+348</td><td>그 변수의 현재 값이 있는 액션 필드.</td></tr><tr><td>T+352의 0xFF000000 마스크 쓰기</td><td>액션 modifier를 대입·가산·감산 등으로 바꾼다.</td></tr><tr><td>0x6509B0에 EPD를 넣고 Deaths(CurrentPlayer,…)</td><td>CP를 간접 메모리 접근 인수로 이용한다.</td></tr><tr><td>여러 DeathsX 마스크 검사와 bit값 Add</td><td>DWORD/바이트를 읽거나 비트를 조합하는 기반 루틴에서 사용된다.</td></tr></tbody></table></div><p class="">예를 들어 <a href="#src-component_0"><code>component_0</code></a>(S 211,538행)은 변수 값이 0이면 자기 nextptr를 바꾼다. 상위 수준에서는 <code>if (value == 0) goto target;</code>에 해당한다. 이후 다른 노드가 원래 nextptr를 복구하므로, 한 번 분기했다고 계속 같은 경로만 타는 것은 아니다.</p><p class="">또한 일반 Action에 player1=0, wavid=0, amount=0이 보이더라도 호출 전에 해당 필드를 쓰는 액션이 있으면 실행 시 값은 달라진다. 이 분석에서는 역할·턴·질문 검증·서사에 필요한 핵심 지점의 필드 수정을 함께 추적했다.</p><p class="">eudplib 원저자의 메모리 읽기 구현도 DeathsX로 비트를 검사하고 EUDVariable에 더하는 구조를 보여준다. 참고: <a href="https://github.com/phu54321/eudplib/blob/master/eudplib/eudlib/memiof/dwepdio.py">eudplib dwepdio.py</a>. 이 외부 자료는 일반 연산 방식의 근거이며, 맵 고유 동작의 근거는 첨부 EPS다.</p></section><section id="validation"><h2>13. 확인한 범위와 남은 한계</h2><div class="table-wrap"><table><thead><tr><th>항목</th><th>확인 방법</th><th>결론의 범위</th></tr></thead><tbody><tr><td>전체 선언과 저장 구조</td><td>두 EPS 전체 정적 인덱싱, RawTrigger 및 shared 노드/액션/참조 분리</td><td>문서에 표현된 구조의 개수. 매 프레임 도달성의 증명은 아니다.</td></tr><tr><td>숨어 있던 대사</td><td>storage.words를 little-endian으로 재구성하고 문자열 주소 참조 확인</td><td>파일 바깥의 대사집 없이 고정 문구와 사용 지점을 찾았다.</td></tr><tr><td>40개 서사 선택 값</td><td>gate의 비교값→참분기→출력 wrapper→문자열 주소를 전부 재확인</td><td>40개 모두 조건과 출력 주소 관계가 맞았다.</td></tr><tr><td>대화권 순환</td><td>43개 노드를 참가 64조합×현재 차례 7종에 대해 평가</td><td>448개에서 예상 순환과 불일치 없음.</td></tr><tr><td>대사 시각·시작 조건</td><td>지원되는 EUD 명령만 평가한 작은 검산</td><td>질문 5회, 72틱/168틱 간격, phase9 기록 시작 확인.</td></tr><tr><td>질문 레코드</td><td>턴/세대/접두사 입력을 바꿔 메모리 기록 비교</td><td>올바른 질문 수락, 일부 부정합 입력 거부 확인.</td></tr><tr><td>제어 패킷</td><td>강퇴·차례 넘김·특수 소환의 수신 경로와 패치된 액션 인수 확인</td><td>대상 CP에서 Defeat, 다음 차례/세대 증가, P1 Mutalisk 생성 호출 확인. 실게임 실행은 하지 않았다.</td></tr><tr><td>미디어 처리</td><td>작은 RLE 입력과 한글 음절 번호를 지원 EUD 명령으로 평가</td><td>256바이트 복원과 WAV ID 대응 확인. 화면 표시와 음원 청취는 미검증.</td></tr><tr><td>원본 맵 전체</td><td>원본 CHK·미디어·브리지·재구성 런타임 없음</td><td>지형/처음 배치/음원 청취/외부 응답/실게임 전체 동작 동등성은 미검증.</td></tr></tbody></table></div><p class="">특히 미네랄 수급 전체, 일부 상호작용의 정확한 거리/배치, 외부 프로그램이 선택하는 GPT 모델과 프롬프트, 최종 영상이 실제 클라이언트에서 보이는 모양은 이 자료만으로 단정할 수 없다. 원래 변수명·함수명·원본 코드의 작성 의도를 복원했다고 주장하지 않는다. 이 보고서의 변수 이름과 의사코드는 확인한 동작을 설명하기 위한 것이다.</p></section><section id="story-table"><h2>부록 A. 첫 서사: 단계와 전체 문구</h2><p class="">S는 recovered_storage.eps를 뜻한다. 모든 문장은 첨부 코드에 저장된 출력문구로 인용했다. 각 행은 실제 분기와 출력 호출의 연결을 확인했다.</p><div class="table-wrap"><table><thead><tr><th>단계</th><th>문구</th><th>조건 노드</th><th>출력 노드</th><th>문자열 위치</th></tr></thead><tbody><tr><td>1</td><td>주남희를 버리고 탈출하시겠습니까? 주남희를 버리고 탈출할겁니까?</td><td>component_16994 · S 391,585행</td><td>component_21100 · S 435,321행</td><td>opaque+1982100<br>S 847,573행</td></tr><tr><td>2</td><td>지금부터는 실제 사건 기록이다.</td><td>component_30057 · S 599,244행</td><td>component_21284 · S 437,285행</td><td>opaque+315868<br>S 832,457행</td></tr><tr><td>3</td><td>기록이 시작된 날은 1999년 5월 20일이다.</td><td>component_11632 · S 334,928행</td><td>component_7263 · S 288,581행</td><td>opaque+14551972<br>S 968,790행</td></tr><tr><td>4</td><td>장소는 대구 동구 효목동의 한 골목이었다.</td><td>component_23506 · S 460,962행</td><td>component_39188 · S 697,136행</td><td>opaque+15819636<br>S 980,045행</td></tr><tr><td>5</td><td>피해자는 당시 여섯 살이던 김태완 어린이였다.</td><td>component_20214 · S 425,912행</td><td>component_33726 · S 638,938행</td><td>opaque+17038400<br>S 992,710행</td></tr><tr><td>6</td><td>아이는 학습지 공부를 하러 가던 길이었다.</td><td>component_11738 · S 336,025행</td><td>component_12013 · S 338,992행</td><td>opaque+16267420<br>S 985,570행</td></tr><tr><td>7</td><td>신원이 밝혀지지 않은 사람이 아이에게 황산을 뿌렸다.</td><td>component_29476 · S 593,077행</td><td>component_42211 · S 729,445행</td><td>opaque+14701896<br>S 970,069행</td></tr><tr><td>8</td><td>아이는 심한 화상을 입고 병원에서 치료를 받았다.</td><td>component_27729 · S 506,098행</td><td>component_1030 · S 222,414행</td><td>opaque+14148480<br>S 965,263행</td></tr><tr><td>9</td><td>병원에서 이어진 투병은 49일이었다.</td><td>component_25629 · S 483,710행</td><td>component_41867 · S 725,757행</td><td>opaque+11680236<br>S 942,677행</td></tr><tr><td>10</td><td>1999년 7월 8일, 태완 군은 끝내 숨졌다.</td><td>component_11789 · S 336,577행</td><td>component_49465 · S 806,956행</td><td>opaque+209848<br>S 831,555행</td></tr><tr><td>11</td><td>수사는 이어졌지만 범인은 밝혀지지 않았다.</td><td>component_31170 · S 611,058행</td><td>component_41861 · S 725,697행</td><td>opaque+17408536<br>S 996,056행</td></tr><tr><td>12</td><td>가족은 진상을 밝히기 위해 수사를 계속 요청했다.</td><td>component_18082 · S 403,229행</td><td>component_50782 · S 821,051행</td><td>opaque+5625356<br>S 880,729행</td></tr><tr><td>13</td><td>2005년, 경찰의 수사본부가 해체됐다.</td><td>component_35476 · S 657,592행</td><td>component_14362 · S 363,703행</td><td>opaque+16492080<br>S 987,658행</td></tr><tr><td>14</td><td>2013년 11월, 가족과 시민단체가 재수사를 청원했다.</td><td>component_1240 · S 224,637행</td><td>component_11276 · S 331,155행</td><td>opaque+11029132<br>S 936,699행</td></tr><tr><td>15</td><td>2014년 7월, 경찰은 기록을 검찰로 보내고 수사를 종결했다.</td><td>component_43183 · S 739,823행</td><td>component_26420 · S 492,192행</td><td>opaque+1848312<br>S 846,295행</td></tr><tr><td>16</td><td>가족은 불기소 처분에 불복해 법원에 재정신청을 냈다.</td><td>component_40668 · S 712,949행</td><td>component_11634 · S 334,947행</td><td>opaque+15565236<br>S 977,656행</td></tr><tr><td>17</td><td>2015년, 대법원에서도 재항고가 기각돼 사건은 미제로 남았다.</td><td>component_34135 · S 643,239행</td><td>component_2413 · S 237,148행</td><td>opaque+17066408<br>S 992,980행</td></tr><tr><td>18</td><td>그해 살인죄 공소시효를 없애는 태완이법이 시행됐다.</td><td>component_46915 · S 779,716행</td><td>component_4781 · S 262,204행</td><td>opaque+12887472<br>S 953,638행</td></tr><tr><td>19</td><td>그러나 이미 시효가 끝난 태완 군 사건에는 적용되지 못했다.</td><td>component_13005 · S 349,514행</td><td>component_46964 · S 780,242행</td><td>opaque+13972500<br>S 963,675행</td></tr><tr><td>20</td><td>기록은 끝났다. 너희는 이 맵에 영원히 다 갇힌다.</td><td>component_36698 · S 670,498행</td><td>component_21534 · S 440,044행</td><td>opaque+4020016<br>S 865,791행</td></tr></tbody></table></div></section><section id="sequel-table"><h2>부록 B. 후속 서사: 단계와 전체 문구</h2><p class="">S는 recovered_storage.eps를 뜻한다. 모든 문장은 첨부 코드에 저장된 출력문구로 인용했다. 각 행은 실제 분기와 출력 호출의 연결을 확인했다.</p><div class="table-wrap"><table><thead><tr><th>단계</th><th>문구</th><th>조건 노드</th><th>출력 노드</th><th>문자열 위치</th></tr></thead><tbody><tr><td>1</td><td>여기는 누군가 벽돌을 쌓아 만든 방이 아니다.</td><td>component_46152 · S 771,423행</td><td>component_13105 · S 350,548행</td><td>opaque+1636796<br>S 844,381행</td></tr><tr><td>2</td><td>너희 발밑의 바닥은 한때 누군가가 떠올렸던 감각이다.</td><td>component_14718 · S 367,451행</td><td>component_794 · S 219,940행</td><td>opaque+240180<br>S 831,859행</td></tr><tr><td>3</td><td>창밖도 골목도 없다. 밖이라고 믿었던 곳에도 같은 어둠이 있다.</td><td>component_14184 · S 361,873행</td><td>component_31258 · S 611,970행</td><td>opaque+1531136<br>S 843,452행</td></tr><tr><td>4</td><td>아주 먼 곳에서 통 안에 잠긴 뇌 하나가 아직 생각하고 있다.</td><td>component_13017 · S 349,633행</td><td>component_15239 · S 372,945행</td><td>opaque+1967952<br>S 847,438행</td></tr><tr><td>5</td><td>그 뇌는 눈이 없는데도 이 방을 보고 귀가 없는데도 너희를 듣는다.</td><td>component_17355 · S 395,471행</td><td>component_29278 · S 522,518행</td><td>opaque+11920944<br>S 944,841행</td></tr><tr><td>6</td><td>전기 신호 하나가 지나갈 때마다 누군가는 여기서 이름을 얻었다.</td><td>component_29709 · S 595,594행</td><td>component_15137 · S 371,791행</td><td>opaque+2192768<br>S 849,529행</td></tr><tr><td>7</td><td>수억 개의 생각이 스쳐 갔고 이곳은 그중 단 하나가 남긴 잔여물이다.</td><td>component_38658 · S 691,475행</td><td>component_16058 · S 381,640행</td><td>opaque+17979656<br>S 1,001,378행</td></tr><tr><td>8</td><td>생각은 이미 다른 곳으로 갔는데 버려진 장면만 지워지지 않았다.</td><td>component_2463 · S 237,682행</td><td>component_698 · S 218,934행</td><td>opaque+10204900<br>S 929,094행</td></tr><tr><td>9</td><td>주남희가 집을 기억하는 것은 돌아갈 집이 남아 있어서가 아니다.</td><td>component_19206 · S 415,234행</td><td>component_5922 · S 274,342행</td><td>opaque+1138200<br>S 839,873행</td></tr><tr><td>10</td><td>집에 가고 싶다는 문장만 마지막 신호에 달라붙어 있었기 때문이다.</td><td>component_35989 · S 663,024행</td><td>component_12201 · S 340,945행</td><td>opaque+16686840<br>S 989,462행</td></tr><tr><td>11</td><td>너희가 들었던 목소리는 밖에서 들어온 것이 아니었다.</td><td>component_40583 · S 712,103행</td><td>component_38104 · S 685,419행</td><td>opaque+14888980<br>S 971,668행</td></tr><tr><td>12</td><td>읽히지 못한 기억들이 서로의 입을 빌려 소리를 내고 있었다.</td><td>component_41413 · S 720,871행</td><td>component_34770 · S 650,090행</td><td>opaque+13700796<br>S 961,157행</td></tr><tr><td>13</td><td>방금 쓰러진 몸도 그 기억이 잠시 빌렸던 모양이었다.</td><td>component_7203 · S 287,949행</td><td>component_13385 · S 353,496행</td><td>opaque+3818076<br>S 863,932행</td></tr><tr><td>14</td><td>이 세계를 움직이는 계산에는 너희를 돌려보낼 주소가 없다.</td><td>component_10296 · S 320,781행</td><td>component_22336 · S 448,491행</td><td>opaque+2196800<br>S 849,558행</td></tr><tr><td>15</td><td>문을 열면 다른 방이 나오고 그 방을 열면 같은 생각이 나온다.</td><td>component_8053 · S 297,005행</td><td>component_27251 · S 501,062행</td><td>opaque+4351904<br>S 868,875행</td></tr><tr><td>16</td><td>시계가 앞으로 가는 것은 시간이 흐르기 때문만은 아니다.</td><td>component_30154 · S 600,310행</td><td>component_7259 · S 288,541행</td><td>opaque+524324<br>S 834,265행</td></tr><tr><td>17</td><td>같은 신호를 다시 읽을 때마다 숫자 하나를 더하고 있을 뿐이다.</td><td>component_10051 · S 318,131행</td><td>component_4547 · S 259,787행</td><td>opaque+2064280<br>S 848,341행</td></tr><tr><td>18</td><td>기억을 끝까지 들었다고 해서 너희를 바라보는 시선이 감기지는 않는다.</td><td>component_40849 · S 714,876행</td><td>component_34192 · S 643,865행</td><td>opaque+1868088<br>S 846,507행</td></tr><tr><td>19</td><td>동쪽에 남은 표식은 방금 지나간 목소리를 다시 불러낼 것이다.</td><td>component_49561 · S 807,993행</td><td>component_6377 · S 279,190행</td><td>opaque+1099896<br>S 839,506행</td></tr><tr><td>20</td><td>조용히 들어 봐. 그 뇌가 지금 너희를 다시 생각하기 시작했다.</td><td>component_15748 · S 378,325행</td><td>component_49968 · S 812,349행</td><td>opaque+16820120<br>S 990,647행</td></tr></tbody></table></div></section><section id="evidence"><h2>부록 C. 본문에서 인용한 노드</h2><p class="">아래는 원본 EPS의 조건·액션 표현식을 추출한 것이다. 조건/액션 제목 및 주석은 읽기 편하게 붙였다. 런타임 필드 패치 전의 표현식이므로 본문 해석과 함께 읽어야 한다.</p><details id="src-component_0"><summary>component_0 · R_1000070 · S 211,538행</summary><pre><code>// component_0 R_1000070 — recovered_storage.eps 211538행
+// raw node; nextptr = S_component_42235
+conditions:
+  Deaths(EPD(S_component_29394 + 1099852), Exactly, 0x0, 0x0)
+actions:
+  SetDeaths(EPD(S_component_0 + 4), SetTo, S_component_6183, 0x0)
+</code></pre></details><details id="src-component_4454"><summary>component_4454 · R_1142E10 · S 258,808행</summary><pre><code>// component_4454 R_1142E10 — recovered_storage.eps 258808행
+// raw node; nextptr = S_component_16313
+conditions:
+  Deaths(EPD(S_component_29394 + 1006108), Exactly, 0x9, 0x0)
+actions:
+  SetDeaths(EPD(S_component_4454 + 4), SetTo, S_component_17920, 0x0)
+</code></pre></details><details id="src-component_5420"><summary>component_5420 · R_118FC30 · S 268,983행</summary><pre><code>// component_5420 R_118FC30 — recovered_storage.eps 268983행
+// raw node; nextptr = S_component_29394 + 1485856
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 1486200), SetTo, EPD(S_component_14011 + 336), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 1486208), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 1485860), SetTo, S_component_14011, 0x0)
+</code></pre></details><details id="src-component_6332"><summary>component_6332 · R_11D13DC · S 278,715행</summary><pre><code>// component_6332 R_11D13DC — recovered_storage.eps 278715행
+// raw node; nextptr = S_component_29394 + 1612864
+conditions:
+actions:
+  SetDeaths(EPD(S_component_1905 + 348), SetTo, S_component_20070, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1607736), SetTo, EPD(S_component_29394 + 1613356), 0x0)
+  SetDeaths(EPD(S_component_29394 + 1607884), SetTo, S_opaque_source_storage + 6046736, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1607956), SetTo, 0x7, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1613208), SetTo, EPD(S_component_29394 + 1608028), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 1613216), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 1612868), SetTo, S_component_10552, 0x0)
+</code></pre></details><details id="src-component_7907"><summary>component_7907 · R_17C2A0 · S 295,447행</summary><pre><code>// component_7907 R_17C2A0 — recovered_storage.eps 295447행
+// raw node; nextptr = S_component_4454
+conditions:
+  Deaths(EPD(S_component_29394 + 1006108), AtLeast, 0x6, 0x0)
+  Deaths(EPD(S_component_29394 + 1006108), AtMost, 0x9, 0x0)
+actions:
+  SetDeaths(EPD(S_component_7907 + 4), SetTo, S_component_30817, 0x0)
+</code></pre></details><details id="src-component_10138"><summary>component_10138 · R_21DC28 · S 319,089행</summary><pre><code>// component_10138 R_21DC28 — recovered_storage.eps 319089행
+// raw node; nextptr = S_component_6956
+conditions:
+actions:
+  SetDeaths(0x9df, SetTo, 0x7, 0x0)
+</code></pre></details><details id="src-component_12913"><summary>component_12913 · R_2E1C54 · S 348,491행</summary><pre><code>// component_12913 R_2E1C54 — recovered_storage.eps 348491행
+// raw node; nextptr = S_component_50983
+conditions:
+  Deaths(0x7, Exactly, 0x7, 0xd2)
+  Deaths(0x7, Exactly, 0x0, 0xd5)
+  Condition(locid=0x0, player=0x6, amount=0x0, unitid=0xc, comparison=0xa, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  Action(locid1=0x2d, strid=0x0, wavid=0x0, time=0x0, player1=0x6, player2=0x0, unitid=0xc, acttype=0x2c, amount=0x1, flags=0x14, eudx=0x0)
+  SetDeaths(0x7, SetTo, 0x18, 0xd5)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x3, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_14011"><summary>component_14011 · R_36F420 · S 360,012행</summary><pre><code>// component_14011 R_36F420 — recovered_storage.eps 360012행
+// raw node; nextptr = S_component_40571
+conditions:
+actions:
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x8, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_14518"><summary>component_14518 · R_3956B0 · S 365,383행</summary><pre><code>// component_14518 R_3956B0 — recovered_storage.eps 365383행
+// raw node; nextptr = S_component_29394 + 460648
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 470644), SetTo, 0x98, 0x0)
+  SetDeaths(EPD(S_component_29394 + 460992), SetTo, EPD(S_component_29394 + 470644), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 461000), SetTo, 0x8000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 460652), SetTo, S_component_9313, 0x0)
+</code></pre></details><details id="src-component_14866"><summary>component_14866 · R_3AF64C · S 368,954행</summary><pre><code>// component_14866 R_3AF64C — recovered_storage.eps 368954행
+// raw node; nextptr = S_component_25756
+conditions:
+  Deaths(0x7, Exactly, 0x4, 0xd2)
+  Condition(locid=0x0, player=0x6, amount=0x1, unitid=0x27, comparison=0x0, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x5, 0xd2)
+</code></pre></details><details id="src-component_15113"><summary>component_15113 · R_3C0EA4 · S 371,558행</summary><pre><code>// component_15113 R_3C0EA4 — recovered_storage.eps 371558행
+// raw node; nextptr = S_component_37262
+conditions:
+actions:
+  SetDeathsX(0xd, SetTo, 0x0, 0x0, 0xffff)
+</code></pre></details><details id="src-component_15914"><summary>component_15914 · R_3FC3BC · S 380,133행</summary><pre><code>// component_15914 R_3FC3BC — recovered_storage.eps 380133행
+// raw node; nextptr = S_component_29394 + 1500688
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 1501032), SetTo, EPD(S_component_19092 + 348), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 1501040), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 1500692), SetTo, S_component_19092, 0x0)
+</code></pre></details><details id="src-component_18823"><summary>component_18823 · R_4D2BA8 · S 411,121행</summary><pre><code>// component_18823 R_4D2BA8 — recovered_storage.eps 411121행
+// raw node; nextptr = S_component_29019
+conditions:
+  Deaths(0x7, Exactly, 0x7, 0xd2)
+actions:
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x7, player2=0x0, unitid=0xe6, acttype=0x16, amount=0x0, flags=0x14, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x7, player2=0x0, unitid=0xe7, acttype=0x16, amount=0x0, flags=0x14, eudx=0x0)
+  SetDeaths(0x7, SetTo, 0x0, 0xd4)
+  SetDeaths(0x7, SetTo, 0x0, 0xd5)
+  SetDeaths(0x6, SetTo, 0x0, 0xc)
+</code></pre></details><details id="src-component_19092"><summary>component_19092 · R_4E6728 · S 414,013행</summary><pre><code>// component_19092 R_4E6728 — recovered_storage.eps 414013행
+// raw node; nextptr = S_component_1038
+conditions:
+actions:
+  SetDeaths(0x7, SetTo, 0x0, 0xdd)
+  SetDeaths(0x7, Add, 0x1, 0xde)
+  SetDeaths(0x7, SetTo, 0x0, 0xe0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x78, player1=0x0, player2=0x0, unitid=0x0, acttype=0xe, amount=0x7, flags=0x4, eudx=0x0)
+  SetDeaths(0x0, SetTo, 0x0, 0xd8)
+  SetDeaths(0x1, SetTo, 0x0, 0xd8)
+  SetDeaths(0x2, SetTo, 0x0, 0xd8)
+  SetDeaths(0x3, SetTo, 0x0, 0xd8)
+  SetDeaths(0x4, SetTo, 0x0, 0xd8)
+  SetDeaths(0x5, SetTo, 0x0, 0xd8)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x64, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x65, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x66, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x67, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x68, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x69, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_19946"><summary>component_19946 · R_523378 · S 423,020행</summary><pre><code>// component_19946 R_523378 — recovered_storage.eps 423020행
+// raw node; nextptr = S_component_51150
+conditions:
+  Deaths(EPD(S_component_29394 + 574612), Exactly, 0x14, 0x0)
+actions:
+  SetDeaths(EPD(S_component_19946 + 4), SetTo, S_component_31197, 0x0)
+</code></pre></details><details id="src-component_20054"><summary>component_20054 · R_52A8E0 · S 424,172행</summary><pre><code>// component_20054 R_52A8E0 — recovered_storage.eps 424172행
+// raw node; nextptr = S_component_6956
+conditions:
+  Deaths(EPD(S_component_29394 + 1059316), Exactly, 0x6, 0x0)
+actions:
+  SetDeaths(EPD(S_component_20054 + 4), SetTo, S_component_14618, 0x0)
+</code></pre></details><details id="src-component_20070"><summary>component_20070 · R_52BC48 · S 424,349행</summary><pre><code>// component_20070 R_52BC48 — recovered_storage.eps 424349행
+// raw node; nextptr = S_component_34843
+conditions:
+  Deaths(EPD(S_component_29394 + 1613356), Exactly, 0x0, 0x0)
+actions:
+  SetDeaths(EPD(S_component_20070 + 4), SetTo, S_component_16569, 0x0)
+</code></pre></details><details id="src-component_23407"><summary>component_23407 · R_622EEC · S 459,924행</summary><pre><code>// component_23407 R_622EEC — recovered_storage.eps 459924행
+// raw node; nextptr = S_component_14866
+conditions:
+  Deaths(0x7, Exactly, 0x4, 0xd2)
+  Deaths(0x7, Exactly, 0x0, 0xd5)
+  Condition(locid=0x0, player=0x6, amount=0x0, unitid=0x27, comparison=0xa, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  Action(locid1=0x2b, strid=0x0, wavid=0x0, time=0x0, player1=0x6, player2=0x0, unitid=0x27, acttype=0x2c, amount=0x1, flags=0x14, eudx=0x0)
+  SetDeaths(0x7, SetTo, 0x18, 0xd5)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x3, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_23789"><summary>component_23789 · R_642770 · S 464,015행</summary><pre><code>// component_23789 R_642770 — recovered_storage.eps 464015행
+// raw node; nextptr = S_component_17844
+conditions:
+  Deaths(EPD(S_component_29394 + 1611844), Exactly, 0x1, 0x0)
+  Deaths(EPD(S_component_29394 + 1612204), Exactly, 0x1, 0x0)
+actions:
+  SetDeaths(EPD(S_component_23789 + 4), SetTo, S_component_2376, 0x0)
+</code></pre></details><details id="src-component_24221"><summary>component_24221 · shared data · S 468,578행</summary><pre><code>// component_24221: R_662B58, R_662B5C, R_662B60, R_662B64, R_662B68, R_662B6C, R_662B70, R_662B74
+const data_24208 = storage.shared(2504);
+storage.define(&quot;component_24221&quot;, S_component_24221, data_24208);
+storage.words(data_24208, 0, 0x1000, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0);
+storage.zeros(data_24208, 32, 44);
+storage.words(data_24208, 76, 0x20, 0x20, 0x100, 0x2, 0x0, 0x0, 0x0, 0x0);
+storage.zeros(data_24208, 108, 16);
+storage.zeros(data_24208, 328, 128);
+storage.zeros(data_24208, 2376, 100);
+storage.zeros(data_24208, 2492, 4);
+storage.zeros(data_24208, 2500, 4);
+</code></pre></details><details id="src-component_24757"><summary>component_24757 · R_68ADF4 · S 474,377행</summary><pre><code>// component_24757 R_68ADF4 — recovered_storage.eps 474377행
+// raw node; nextptr = S_component_8046
+conditions:
+actions:
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x2, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_25756"><summary>component_25756 · R_6F53CC · S 485,065행</summary><pre><code>// component_25756 R_6F53CC — recovered_storage.eps 485065행
+// raw node; nextptr = S_component_14510
+conditions:
+  Deaths(0x7, Exactly, 0x5, 0xd2)
+  Deaths(0x6, AtLeast, 0x1, 0x27)
+  Condition(locid=0x0, player=0x6, amount=0x0, unitid=0x27, comparison=0xa, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x6, 0xd2)
+</code></pre></details><details id="src-component_27298"><summary>component_27298 · R_767820 · S 501,542행</summary><pre><code>// component_27298 R_767820 — recovered_storage.eps 501542행
+// raw node; nextptr = S_component_29394 + 1611568
+conditions:
+actions:
+  SetDeaths(EPD(S_component_1905 + 348), SetTo, S_component_32587, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1607736), SetTo, EPD(S_component_29394 + 1612060), 0x0)
+  SetDeaths(EPD(S_component_29394 + 1607884), SetTo, S_opaque_source_storage + 2516312, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1607956), SetTo, 0x14, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1611912), SetTo, EPD(S_component_29394 + 1608028), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 1611920), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 1611572), SetTo, S_component_10552, 0x0)
+</code></pre></details><details id="src-component_29908"><summary>component_29908 · R_9A61DC · S 597,666행</summary><pre><code>// component_29908 R_9A61DC — recovered_storage.eps 597666행
+// raw node; nextptr = S_component_3860
+conditions:
+  Deaths(EPD(S_component_29394 + 1499668), Exactly, 0x1, 0x0)
+  Deaths(EPD(S_component_29394 + 1499524), AtMost, 0x5, 0x0)
+  Deaths(EPD(S_component_29394 + 1499740), AtLeast, 0xa, 0x0)
+  Deaths(EPD(S_component_29394 + 1499740), AtMost, 0x56, 0x0)
+actions:
+  SetDeaths(EPD(S_component_29908 + 4), SetTo, S_component_50824, 0x0)
+</code></pre></details><details id="src-component_30129"><summary>component_30129 · R_9B83FC · S 600,026행</summary><pre><code>// component_30129 R_9B83FC — recovered_storage.eps 600026행
+// raw node; nextptr = S_component_4839
+conditions:
+  Deaths(EPD(S_component_29394 + 1484908), AtMost, 0x2ba3, 0x0)
+actions:
+  SetDeaths(EPD(S_component_30129 + 4), SetTo, S_component_296, 0x0)
+</code></pre></details><details id="src-component_30718"><summary>component_30718 · R_9E5DF0 · S 606,296행</summary><pre><code>// component_30718 R_9E5DF0 — recovered_storage.eps 606296행
+// raw node; nextptr = S_component_7111
+conditions:
+  Deaths(0x4, Exactly, 0x1, 0xdb)
+  Deaths(0x4, Exactly, 0x0, 0xd3)
+  Condition(locid=0x18, player=0x4, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x4, SetTo, 0x1, 0xd3)
+  Action(locid1=0x0, strid=0x3e, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x9, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_31300"><summary>component_31300 · R_A0E5C0 · S 612,412행</summary><pre><code>// component_31300 R_A0E5C0 — recovered_storage.eps 612412행
+// raw node; nextptr = 0x0
+conditions:
+  Deaths(0x7, Exactly, 0x8, 0xd2)
+  Deaths(0x6, AtLeast, 0x1, 0xc)
+  Condition(locid=0x0, player=0x6, amount=0x0, unitid=0xc, comparison=0xa, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x9, 0xd2)
+</code></pre></details><details id="src-component_32478"><summary>component_32478 · R_A62F68 · S 624,994행</summary><pre><code>// component_32478 R_A62F68 — recovered_storage.eps 624994행
+// raw node; nextptr = S_component_38327
+conditions:
+  Deaths(0x7, Exactly, 0x1, 0xe0)
+  Deaths(0x7, Exactly, 0x0, 0xdd)
+  Deaths(0x0, Exactly, 0x1, 0xdb)
+actions:
+  SetDeaths(0x7, SetTo, 0x1, 0xdd)
+  SetDeaths(0x7, SetTo, 0x0, 0xe0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x3, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_33994"><summary>component_33994 · R_AD40A8 · S 641,775행</summary><pre><code>// component_33994 R_AD40A8 — recovered_storage.eps 641775행
+// raw node; nextptr = S_component_39465
+conditions:
+  Deaths(0x7, Exactly, 0x0, 0xd2)
+  Condition(locid=0x0, player=0x7, amount=0x7d0, unitid=0x0, comparison=0x0, condtype=0x4, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x1, 0xd2)
+  SetDeaths(0x7, SetTo, 0x0, 0xd4)
+  SetDeaths(0x7, SetTo, 0x0, 0xd5)
+  SetDeaths(0x6, SetTo, 0x0, 0x41)
+</code></pre></details><details id="src-component_34202"><summary>component_34202 · R_AE2E18 · S 643,970행</summary><pre><code>// component_34202 R_AE2E18 — recovered_storage.eps 643970행
+// raw node; nextptr = S_component_3405
+conditions:
+  Deaths(0x7, Exactly, 0x3, 0xd2)
+  Deaths(0x0, Exactly, 0x1, 0xdb)
+  Deaths(0x0, Exactly, 0x1, 0xd5)
+  Condition(locid=0x1f, player=0x0, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x4, 0xd2)
+  SetDeaths(0x7, SetTo, 0x0, 0xd4)
+  SetDeaths(0x7, SetTo, 0x0, 0xd5)
+  SetDeaths(0x6, SetTo, 0x0, 0x27)
+</code></pre></details><details id="src-component_34383"><summary>component_34383 · R_AF29C · S 645,952행</summary><pre><code>// component_34383 R_AF29C — recovered_storage.eps 645952행
+// raw node; nextptr = S_component_24664
+conditions:
+  Deaths(0x0, Exactly, 0x1, 0xdb)
+  Deaths(0x0, Exactly, 0x0, 0xd3)
+  Condition(locid=0x14, player=0x0, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x0, SetTo, 0x1, 0xd3)
+  Action(locid1=0x0, strid=0x3a, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x9, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_34431"><summary>component_34431 · R_AF6350 · S 646,488행</summary><pre><code>// component_34431 R_AF6350 — recovered_storage.eps 646488행
+// raw node; nextptr = S_component_36301
+conditions:
+actions:
+  SetDeathsX(0xd, SetTo, 0x0, 0x0, 0xff0000)
+</code></pre></details><details id="src-component_35459"><summary>component_35459 · R_B42FA8 · S 657,420행</summary><pre><code>// component_35459 R_B42FA8 — recovered_storage.eps 657420행
+// raw node; nextptr = S_component_4463
+conditions:
+  Deaths(0x5, Exactly, 0x1, 0xdb)
+  Deaths(0x5, Exactly, 0x0, 0xd3)
+  Condition(locid=0x19, player=0x5, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x5, SetTo, 0x1, 0xd3)
+  Action(locid1=0x0, strid=0x3f, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x9, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_36159"><summary>component_36159 · R_B76BDC · S 664,849행</summary><pre><code>// component_36159 R_B76BDC — recovered_storage.eps 664849행
+// raw node; nextptr = S_component_37187
+conditions:
+  Deaths(0x7, Exactly, 0x1, 0xd2)
+  Deaths(0x7, Exactly, 0x0, 0xd5)
+  Condition(locid=0x0, player=0x6, amount=0x0, unitid=0x41, comparison=0xa, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  Action(locid1=0x1e, strid=0x0, wavid=0x0, time=0x0, player1=0x6, player2=0x0, unitid=0x41, acttype=0x2c, amount=0x1, flags=0x14, eudx=0x0)
+  SetDeaths(0x7, SetTo, 0x18, 0xd5)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x3, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_36283"><summary>component_36283 · R_B7FA94 · S 666,161행</summary><pre><code>// component_36283 R_B7FA94 — recovered_storage.eps 666161행
+// raw node; nextptr = S_component_13989
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 574972), SetTo, 0x1, 0x0)
+</code></pre></details><details id="src-component_37187"><summary>component_37187 · R_BC390C · S 675,705행</summary><pre><code>// component_37187 R_BC390C — recovered_storage.eps 675705행
+// raw node; nextptr = S_component_41771
+conditions:
+  Deaths(0x7, Exactly, 0x1, 0xd2)
+  Condition(locid=0x0, player=0x6, amount=0x1, unitid=0x41, comparison=0x0, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x2, 0xd2)
+</code></pre></details><details id="src-component_37294"><summary>component_37294 · R_BCBB0C · S 676,868행</summary><pre><code>// component_37294 R_BCBB0C — recovered_storage.eps 676868행
+// raw node; nextptr = S_component_30539
+conditions:
+  Deaths(EPD(S_component_29394 + 1514644), Exactly, 0x0, 0x0)
+  Deaths(EPD(S_component_29394 + 1514860), Exactly, 0x0, 0x0)
+  Deaths(EPD(S_component_29394 + 1514500), Exactly, 0x0, 0x0)
+  Deaths(EPD(S_component_29394 + 1515292), Exactly, 0x1, 0x0)
+  Deaths(EPD(S_component_29394 + 1515652), Exactly, 0x0, 0x0)
+  Deaths(EPD(S_component_29394 + 1515940), Exactly, 0x1, 0x0)
+actions:
+  SetDeaths(EPD(S_component_37294 + 4), SetTo, S_component_45909, 0x0)
+</code></pre></details><details id="src-component_37382"><summary>component_37382 · R_BD1D74 · S 677,809행</summary><pre><code>// component_37382 R_BD1D74 — recovered_storage.eps 677809행
+// raw node; nextptr = S_component_10259
+conditions:
+actions:
+  Action(locid1=0x0, strid=0x0, wavid=0xcd9, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x8, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_37716"><summary>component_37716 · R_BE99E0 · S 681,322행</summary><pre><code>// component_37716 R_BE99E0 — recovered_storage.eps 681322행
+// raw node; nextptr = S_component_32478
+conditions:
+  Deaths(0x7, Exactly, 0x1, 0xdf)
+  Condition(locid=0x0, player=0x0, amount=0x0, unitid=0x0, comparison=0x1, condtype=0x1, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x1, 0xe0)
+  SetDeaths(0x7, Add, 0x1, 0xde)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x78, player1=0x0, player2=0x0, unitid=0x0, acttype=0xe, amount=0x7, flags=0x4, eudx=0x0)
+  SetDeaths(0x0, SetTo, 0x0, 0xd8)
+  SetDeaths(0x1, SetTo, 0x0, 0xd8)
+  SetDeaths(0x2, SetTo, 0x0, 0xd8)
+  SetDeaths(0x3, SetTo, 0x0, 0xd8)
+  SetDeaths(0x4, SetTo, 0x0, 0xd8)
+  SetDeaths(0x5, SetTo, 0x0, 0xd8)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x64, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x65, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x66, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x67, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x68, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x69, unitid=0x0, acttype=0xd, amount=0x4, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x3, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_38030"><summary>component_38030 · R_BFF7C · S 684,645행</summary><pre><code>// component_38030 R_BFF7C — recovered_storage.eps 684645행
+// raw node; nextptr = S_component_12378
+conditions:
+  Deaths(0x1, Exactly, 0x1, 0xdb)
+  Deaths(0x1, Exactly, 0x0, 0xd3)
+  Condition(locid=0x15, player=0x1, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x1, SetTo, 0x1, 0xd3)
+  Action(locid1=0x0, strid=0x3b, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x9, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_39612"><summary>component_39612 · R_C710C8 · S 701,662행</summary><pre><code>// component_39612 R_C710C8 — recovered_storage.eps 701662행
+// raw node; nextptr = S_component_13164
+conditions:
+actions:
+  SetDeaths(EPD(S_component_18973 + 4), SetTo, S_component_33000 + 2080, 0x0)
+  SetDeaths(EPD(S_component_33000 + 2084), SetTo, S_component_7907, 0x0)
+  SetDeaths(EPD(S_component_33000 + 2424), SetTo, 0x31993, 0x0)
+  SetDeaths(EPD(S_component_18973 + 344), SetTo, EPD(S_component_29394 + 1006108), 0x0)
+  SetDeaths(0x31993, SetTo, 0x9df, 0x0)
+</code></pre></details><details id="src-component_40060"><summary>component_40060 · R_C9279C · S 706,455행</summary><pre><code>// component_40060 R_C9279C — recovered_storage.eps 706455행
+// raw node; nextptr = S_component_43520
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 574972), SetTo, 0xd, 0x0)
+</code></pre></details><details id="src-component_40898"><summary>component_40898 · R_CD0538 · S 715,418행</summary><pre><code>// component_40898 R_CD0538 — recovered_storage.eps 715418행
+// raw node; nextptr = S_component_33610
+conditions:
+  Deaths(0x2, Exactly, 0x1, 0xdb)
+  Deaths(0x2, Exactly, 0x0, 0xd3)
+  Condition(locid=0x16, player=0x2, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x2, SetTo, 0x1, 0xd3)
+  Action(locid1=0x0, strid=0x3c, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x9, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_41362"><summary>component_41362 · R_CF0B6C · S 720,323행</summary><pre><code>// component_41362 R_CF0B6C — recovered_storage.eps 720323행
+// raw node; nextptr = S_component_11471
+conditions:
+actions:
+  SetDeaths(EPD(S_component_34965 + 4), SetTo, S_component_39613, 0x0)
+  SetDeaths(EPD(S_component_29394 + 13228), SetTo, S_opaque_source_storage + 14620412, 0x0)
+</code></pre></details><details id="src-component_41771"><summary>component_41771 · R_D0DA54 · S 724,663행</summary><pre><code>// component_41771 R_D0DA54 — recovered_storage.eps 724663행
+// raw node; nextptr = S_component_43470
+conditions:
+  Deaths(0x7, Exactly, 0x2, 0xd2)
+  Deaths(0x6, AtLeast, 0x1, 0x41)
+  Condition(locid=0x0, player=0x6, amount=0x0, unitid=0x41, comparison=0xa, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x3, 0xd2)
+</code></pre></details><details id="src-component_43470"><summary>component_43470 · R_D89414 · S 742,883행</summary><pre><code>// component_43470 R_D89414 — recovered_storage.eps 742883행
+// raw node; nextptr = S_component_34202
+conditions:
+  Deaths(0x7, Exactly, 0x3, 0xd2)
+  Deaths(0x0, Exactly, 0x1, 0xdb)
+  Deaths(0x0, Exactly, 0x0, 0xd5)
+  Condition(locid=0x0, player=0x0, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+  Condition(locid=0x1f, player=0x0, amount=0x0, unitid=0xe6, comparison=0xa, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x0, SetTo, 0x1, 0xd5)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x3, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_43501"><summary>component_43501 · R_D8B55C · S 743,215행</summary><pre><code>// component_43501 R_D8B55C — recovered_storage.eps 743215행
+// raw node; nextptr = S_component_29394 + 1517824
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 1518244), SetTo, S_opaque_source_storage + 14620540, 0x0)
+  SetDeaths(EPD(S_component_29394 + 1518168), SetTo, EPD(S_component_29394 + 1518244), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 1518176), SetTo, 0x8000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 1517828), SetTo, S_component_27097, 0x0)
+</code></pre></details><details id="src-component_43520"><summary>component_43520 · R_D8C75C · S 743,411행</summary><pre><code>// component_43520 R_D8C75C — recovered_storage.eps 743411행
+// raw node; nextptr = S_component_29721
+conditions:
+actions:
+  SetDeaths(EPD(S_component_29394 + 910564), SetTo, 0x5, 0x0)
+</code></pre></details><details id="src-component_43951"><summary>component_43951 · R_DAE31C · S 748,057행</summary><pre><code>// component_43951 R_DAE31C — recovered_storage.eps 748057행
+// raw node; nextptr = S_component_29394 + 470728
+conditions:
+actions:
+  SetDeaths(EPD(S_component_199 + 4), SetTo, S_component_33010, 0x0)
+  SetDeaths(EPD(S_component_29394 + 9556), SetTo, 0xe4, 0x0)
+  SetDeaths(EPD(S_component_29394 + 471072), SetTo, EPD(S_component_29394 + 9628), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 471080), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 470732), SetTo, S_component_29394 + 470800, 0x0)
+  SetDeaths(EPD(S_component_29394 + 471144), SetTo, EPD(S_component_29394 + 9700), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 471152), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 470804), SetTo, S_component_13015, 0x0)
+</code></pre></details><details id="src-component_47732"><summary>component_47732 · R_ED559C · S 788,580행</summary><pre><code>// component_47732 R_ED559C — recovered_storage.eps 788580행
+// raw node; nextptr = S_component_29394 + 1499176
+conditions:
+actions:
+  SetDeaths(EPD(S_component_21102 + 4), SetTo, S_component_43501, 0x0)
+  SetDeaths(EPD(S_component_1136 + 348), SetTo, EPD(S_component_29394 + 1518172), 0x0)
+  SetDeaths(EPD(S_component_29394 + 1499520), SetTo, EPD(S_component_33000 + 3652), 0x0)
+  SetDeathsX(EPD(S_component_29394 + 1499528), SetTo, 0x7000000, 0x0, 0xff000000)
+  SetDeaths(EPD(S_component_29394 + 1499180), SetTo, S_component_49580, 0x0)
+</code></pre></details><details id="src-component_48792"><summary>component_48792 · R_F21B18 · S 799,765행</summary><pre><code>// component_48792 R_F21B18 — recovered_storage.eps 799765행
+// raw node; nextptr = S_component_46149
+conditions:
+  Deaths(0x3, Exactly, 0x1, 0xdb)
+  Deaths(0x3, Exactly, 0x0, 0xd3)
+  Condition(locid=0x17, player=0x3, amount=0x1, unitid=0xe6, comparison=0x0, condtype=0x3, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x3, SetTo, 0x1, 0xd3)
+  Action(locid1=0x0, strid=0x3d, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x0, acttype=0x9, amount=0x0, flags=0x4, eudx=0x0)
+</code></pre></details><details id="src-component_50983"><summary>component_50983 · R_FCF7B8 · S 823,156행</summary><pre><code>// component_50983 R_FCF7B8 — recovered_storage.eps 823156행
+// raw node; nextptr = S_component_31300
+conditions:
+  Deaths(0x7, Exactly, 0x7, 0xd2)
+  Condition(locid=0x0, player=0x6, amount=0x1, unitid=0xc, comparison=0x0, condtype=0x2, restype=0x0, flags=0x0, eudx=0x0)
+actions:
+  SetDeaths(0x7, SetTo, 0x8, 0xd2)
+</code></pre></details><details id="src-component_51112"><summary>component_51112 · R_FD8E68 · S 824,510행</summary><pre><code>// component_51112 R_FD8E68 — recovered_storage.eps 824510행
+// raw node; nextptr = S_component_5785
+conditions:
+actions:
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x0, unitid=0x2, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x1, player2=0x0, unitid=0x2, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x2, player2=0x0, unitid=0x2, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x3, player2=0x0, unitid=0x2, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x4, player2=0x0, unitid=0x2, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x5, player2=0x0, unitid=0x2, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x6, player2=0x0, unitid=0x0, acttype=0x39, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x3069562b, unitid=0x0, acttype=0xf, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x3169562b, unitid=0x0, acttype=0xf, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x3269562b, unitid=0x0, acttype=0xf, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x3369562b, unitid=0x0, acttype=0xf, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x3469562b, unitid=0x0, acttype=0xf, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x0, player2=0x3569562b, unitid=0x0, acttype=0xf, amount=0x0, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x7, player2=0x32, unitid=0x0, acttype=0x1a, amount=0x7, flags=0x4, eudx=0x0)
+  Action(locid1=0x0, strid=0x0, wavid=0x0, time=0x0, player1=0x7, player2=0x0, unitid=0x1, acttype=0x1a, amount=0x7, flags=0x4, eudx=0x0)
+</code></pre></details></section><section id="provenance"><h2>부록 D. 분석한 파일 식별</h2><div class="table-wrap"><table><thead><tr><th>파일</th><th>바이트</th><th>SHA-256</th></tr></thead><tbody><tr><td>recovered_storage.eps</td><td>48,186,074</td><td>645446b523154eb866ea2cbcdf476ebb1d00814226fdb5913d1788a56f9c8607</td></tr><tr><td>recovered_text.eps</td><td>240,261</td><td>53bf6dd543c5daa60072e961421b745ef4bc4f0bed8325b853ea80f896daa7a4</td></tr></tbody></table></div><p class="">첨부 원본은 수정하지 않았다. 분석일: 2026-10-07.</p></section><footer>근거 표기의 S는 recovered_storage.eps, T는 recovered_text.eps다. 본문 코드 링크를 클릭하면 추출한 근거 노드가 펼쳐진다. 별도 네트워크 연결 없이 읽을 수 있다.</footer></main><script>document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#src-"]');if(a){const d=document.querySelector(a.getAttribute('href'));if(d)d.open=true}});if(location.hash.startsWith('#src-')){const d=document.querySelector(location.hash);if(d)d.open=true}</script></body></html>
